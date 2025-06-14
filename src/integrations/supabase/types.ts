@@ -9,7 +9,115 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          location: string | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          location?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          location?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_personalizations: {
+        Row: {
+          cost: number
+          created_at: string
+          date: string
+          id: string
+          service: string
+          status: string
+          user_id: string
+          vehicle: string
+        }
+        Insert: {
+          cost: number
+          created_at?: string
+          date: string
+          id?: string
+          service: string
+          status?: string
+          user_id: string
+          vehicle: string
+        }
+        Update: {
+          cost?: number
+          created_at?: string
+          date?: string
+          id?: string
+          service?: string
+          status?: string
+          user_id?: string
+          vehicle?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_personalizations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_purchases: {
+        Row: {
+          id: string
+          item_name: string
+          purchase_date: string
+          quantity: number
+          total_cost: number
+          unit_price: number
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          item_name: string
+          purchase_date?: string
+          quantity?: number
+          total_cost: number
+          unit_price: number
+          user_id: string
+        }
+        Update: {
+          id?: string
+          item_name?: string
+          purchase_date?: string
+          quantity?: number
+          total_cost?: number
+          unit_price?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_purchases_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

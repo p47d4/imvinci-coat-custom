@@ -1,69 +1,91 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { User, Car, ShoppingBag, Calendar, MapPin, Phone, Mail } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+
+interface UserProfile {
+  id: string;
+  email: string;
+  full_name: string;
+  phone: string;
+  location: string;
+  created_at: string;
+}
+
+interface Personalization {
+  id: string;
+  vehicle: string;
+  service: string;
+  date: string;
+  status: string;
+  cost: number;
+}
+
+interface Purchase {
+  id: string;
+  item_name: string;
+  quantity: number;
+  unit_price: number;
+  total_cost: number;
+  purchase_date: string;
+}
 
 const Profile = () => {
-  // Mock data - in a real app this would come from a database
-  const userProfile = {
-    name: 'John Doe',
-    email: 'john.doe@email.com',
-    phone: '+234 (0) 123-456-7890',
-    location: 'Lagos, Nigeria',
-    memberSince: 'January 2024'
+  const { user } = useAuth();
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [personalizations, setPersonalizations] = useState<Personalization[]>([]);
+  const [purchases, setPurchases] = useState<Purchase[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      fetchUserData();
+    }
+  }, [user]);
+
+  const fetchUserData = async () => {
+    try {
+      // Fetch user profile
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user!.id)
+        .single();
+
+      if (profileData) {
+        setProfile(profileData);
+      }
+
+      // Fetch personalizations
+      const { data: personalizationsData } = await supabase
+        .from('user_personalizations')
+        .select('*')
+        .eq('user_id', user!.id)
+        .order('created_at', { ascending: false });
+
+      if (personalizationsData) {
+        setPersonalizations(personalizationsData);
+      }
+
+      // Fetch purchases
+      const { data: purchasesData } = await supabase
+        .from('user_purchases')
+        .select('*')
+        .eq('user_id', user!.id)
+        .order('purchase_date', { ascending: false });
+
+      if (purchasesData) {
+        setPurchases(purchasesData);
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const personalizations = [
-    {
-      id: 1,
-      vehicle: 'BMW M3 2023',
-      service: 'Ceramic Coating + PPF',
-      date: '2024-12-15',
-      status: 'Completed',
-      cost: 450000
-    },
-    {
-      id: 2,
-      vehicle: 'Mercedes C-Class 2022',
-      service: 'Paint Correction + Ceramic Coating',
-      date: '2024-11-28',
-      status: 'Completed',
-      cost: 320000
-    },
-    {
-      id: 3,
-      vehicle: 'Audi A4 2024',
-      service: 'Full Vehicle Wrap',
-      date: '2024-10-10',
-      status: 'Completed',
-      cost: 280000
-    }
-  ];
-
-  const purchases = [
-    {
-      id: 1,
-      item: 'Ceramic Coating Kit',
-      quantity: 2,
-      date: '2024-12-01',
-      cost: 239200
-    },
-    {
-      id: 2,
-      item: 'Microfiber Cloth Set',
-      quantity: 3,
-      date: '2024-11-20',
-      cost: 58800
-    },
-    {
-      id: 3,
-      item: 'Detail Spray',
-      quantity: 1,
-      date: '2024-11-15',
-      cost: 15600
-    }
-  ];
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-NG', {
@@ -73,6 +95,29 @@ const Profile = () => {
       maximumFractionDigits: 0
     }).format(price);
   };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
+        <Header />
+        <div className="pt-20 flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-400 mx-auto mb-4"></div>
+            <p className="text-gray-400">Loading your profile...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
@@ -99,35 +144,37 @@ const Profile = () => {
                     <User className="w-5 h-5 text-red-400" />
                     <div>
                       <p className="text-gray-400 text-sm">Name</p>
-                      <p className="text-white font-semibold">{userProfile.name}</p>
+                      <p className="text-white font-semibold">{profile?.full_name || 'Not provided'}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="w-5 h-5 text-red-400" />
                     <div>
                       <p className="text-gray-400 text-sm">Email</p>
-                      <p className="text-white font-semibold">{userProfile.email}</p>
+                      <p className="text-white font-semibold">{profile?.email || user?.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Phone className="w-5 h-5 text-red-400" />
                     <div>
                       <p className="text-gray-400 text-sm">Phone</p>
-                      <p className="text-white font-semibold">{userProfile.phone}</p>
+                      <p className="text-white font-semibold">{profile?.phone || 'Not provided'}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <MapPin className="w-5 h-5 text-red-400" />
                     <div>
                       <p className="text-gray-400 text-sm">Location</p>
-                      <p className="text-white font-semibold">{userProfile.location}</p>
+                      <p className="text-white font-semibold">{profile?.location || 'Not provided'}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Calendar className="w-5 h-5 text-red-400" />
                     <div>
                       <p className="text-gray-400 text-sm">Member Since</p>
-                      <p className="text-white font-semibold">{userProfile.memberSince}</p>
+                      <p className="text-white font-semibold">
+                        {profile?.created_at ? formatDate(profile.created_at) : 'Recently joined'}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -139,25 +186,32 @@ const Profile = () => {
                   <Car className="w-6 h-6 text-red-400 mr-3" />
                   <h2 className="text-2xl font-bold text-red-400">Vehicle Personalizations</h2>
                 </div>
-                <div className="space-y-4">
-                  {personalizations.map((personalization) => (
-                    <div key={personalization.id} className="bg-gray-700/50 rounded-lg p-6">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                        <div className="mb-4 md:mb-0">
-                          <h3 className="text-lg font-semibold text-white">{personalization.vehicle}</h3>
-                          <p className="text-gray-400">{personalization.service}</p>
-                          <p className="text-sm text-gray-500">{personalization.date}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-xl font-bold text-white">{formatPrice(personalization.cost)}</p>
-                          <span className="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-sm">
-                            {personalization.status}
-                          </span>
+                {personalizations.length > 0 ? (
+                  <div className="space-y-4">
+                    {personalizations.map((personalization) => (
+                      <div key={personalization.id} className="bg-gray-700/50 rounded-lg p-6">
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                          <div className="mb-4 md:mb-0">
+                            <h3 className="text-lg font-semibold text-white">{personalization.vehicle}</h3>
+                            <p className="text-gray-400">{personalization.service}</p>
+                            <p className="text-sm text-gray-500">{formatDate(personalization.date)}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-xl font-bold text-white">{formatPrice(personalization.cost)}</p>
+                            <span className={`inline-block px-3 py-1 rounded-full text-sm ${
+                              personalization.status === 'completed' ? 'bg-green-600' : 
+                              personalization.status === 'pending' ? 'bg-yellow-600' : 'bg-gray-600'
+                            } text-white`}>
+                              {personalization.status}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-400 text-center py-8">No personalizations yet. Start by getting a quote!</p>
+                )}
               </div>
 
               {/* Purchase History */}
@@ -166,22 +220,26 @@ const Profile = () => {
                   <ShoppingBag className="w-6 h-6 text-red-400 mr-3" />
                   <h2 className="text-2xl font-bold text-red-400">Purchase History</h2>
                 </div>
-                <div className="space-y-4">
-                  {purchases.map((purchase) => (
-                    <div key={purchase.id} className="bg-gray-700/50 rounded-lg p-6">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                        <div className="mb-4 md:mb-0">
-                          <h3 className="text-lg font-semibold text-white">{purchase.item}</h3>
-                          <p className="text-gray-400">Quantity: {purchase.quantity}</p>
-                          <p className="text-sm text-gray-500">{purchase.date}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-xl font-bold text-white">{formatPrice(purchase.cost)}</p>
+                {purchases.length > 0 ? (
+                  <div className="space-y-4">
+                    {purchases.map((purchase) => (
+                      <div key={purchase.id} className="bg-gray-700/50 rounded-lg p-6">
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                          <div className="mb-4 md:mb-0">
+                            <h3 className="text-lg font-semibold text-white">{purchase.item_name}</h3>
+                            <p className="text-gray-400">Quantity: {purchase.quantity}</p>
+                            <p className="text-sm text-gray-500">{formatDate(purchase.purchase_date)}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-xl font-bold text-white">{formatPrice(purchase.total_cost)}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-400 text-center py-8">No purchases yet. Check out our shop to get started!</p>
+                )}
               </div>
             </div>
           </div>
