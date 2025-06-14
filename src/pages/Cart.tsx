@@ -1,9 +1,9 @@
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ShoppingCart, Plus, Minus, Trash2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useCart } from '@/hooks/useCart';
 
 // Product data (in a real app, this would come from an API)
 const products = [
@@ -54,88 +54,7 @@ interface CartItem {
 }
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
-  // Load cart from localStorage and convert to cart items
-  useEffect(() => {
-    const loadCart = () => {
-      try {
-        const cartData = JSON.parse(localStorage.getItem('cart') || '[]');
-        
-        // Count quantity of each product
-        const itemCounts = cartData.reduce((acc: Record<number, number>, productId: number) => {
-          acc[productId] = (acc[productId] || 0) + 1;
-          return acc;
-        }, {});
-
-        // Convert to cart items with product details
-        const items: CartItem[] = Object.entries(itemCounts).map(([productId, quantity]) => {
-          const product = products.find(p => p.id === parseInt(productId));
-          if (!product) return null;
-          
-          return {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            quantity: quantity as number,
-            image: product.image
-          };
-        }).filter(Boolean) as CartItem[];
-
-        setCartItems(items);
-      } catch {
-        setCartItems([]);
-      }
-    };
-
-    loadCart();
-
-    // Listen for cart updates
-    const handleCartUpdate = () => {
-      loadCart();
-    };
-
-    window.addEventListener('cartUpdated', handleCartUpdate);
-    window.addEventListener('storage', handleCartUpdate);
-
-    return () => {
-      window.removeEventListener('cartUpdated', handleCartUpdate);
-      window.removeEventListener('storage', handleCartUpdate);
-    };
-  }, []);
-
-  const updateCart = (newCartItems: CartItem[]) => {
-    // Convert cart items back to array of product IDs
-    const cartData: number[] = [];
-    newCartItems.forEach(item => {
-      for (let i = 0; i < item.quantity; i++) {
-        cartData.push(item.id);
-      }
-    });
-    
-    localStorage.setItem('cart', JSON.stringify(cartData));
-    setCartItems(newCartItems);
-    
-    // Trigger custom event to update header
-    window.dispatchEvent(new CustomEvent('cartUpdated'));
-  };
-
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity <= 0) {
-      removeItem(id);
-      return;
-    }
-    
-    const updatedItems = cartItems.map(item =>
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    );
-    updateCart(updatedItems);
-  };
-
-  const removeItem = (id: number) => {
-    const updatedItems = cartItems.filter(item => item.id !== id);
-    updateCart(updatedItems);
-  };
+  const { cartItems, loading, updateQuantity, removeFromCart } = useCart();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-NG', {
@@ -146,9 +65,34 @@ const Cart = () => {
     }).format(price);
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  // Get product details for cart items
+  const cartItemsWithDetails = cartItems.map(cartItem => {
+    const product = products.find(p => p.id === cartItem.product_id);
+    return {
+      ...cartItem,
+      product
+    };
+  }).filter(item => item.product); // Filter out items where product is not found
+
+  const subtotal = cartItemsWithDetails.reduce((sum, item) => {
+    return sum + (item.product!.price * item.quantity);
+  }, 0);
   const tax = subtotal * 0.075; // 7.5% VAT
   const total = subtotal + tax;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
+        <Header />
+        <div className="pt-20 flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-400 mx-auto mb-4"></div>
+            <p className="text-gray-400">Loading cart...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
@@ -167,7 +111,7 @@ const Cart = () => {
                 <p className="text-xl text-gray-400">Review your items before checkout</p>
               </div>
 
-              {cartItems.length === 0 ? (
+              {cartItemsWithDetails.length === 0 ? (
                 <div className="text-center py-16">
                   <ShoppingCart className="w-16 h-16 text-gray-600 mx-auto mb-4" />
                   <h2 className="text-2xl font-bold text-gray-400 mb-4">Your cart is empty</h2>
@@ -187,16 +131,16 @@ const Cart = () => {
                     <div className="bg-gray-800/50 rounded-2xl p-6">
                       <h2 className="text-2xl font-bold mb-6 text-red-400">Cart Items</h2>
                       <div className="space-y-6">
-                        {cartItems.map((item) => (
+                        {cartItemsWithDetails.map((item) => (
                           <div key={item.id} className="flex items-center space-x-4 bg-gray-700/30 rounded-lg p-4">
                             <img
-                              src={item.image}
-                              alt={item.name}
+                              src={item.product!.image}
+                              alt={item.product!.name}
                               className="w-16 h-16 object-cover rounded-lg"
                             />
                             <div className="flex-1">
-                              <h3 className="font-semibold text-white">{item.name}</h3>
-                              <p className="text-gray-400">{formatPrice(item.price)}</p>
+                              <h3 className="font-semibold text-white">{item.product!.name}</h3>
+                              <p className="text-gray-400">{formatPrice(item.product!.price)}</p>
                             </div>
                             <div className="flex items-center space-x-3">
                               <button
@@ -214,10 +158,10 @@ const Cart = () => {
                               </button>
                             </div>
                             <div className="text-right">
-                              <p className="font-bold text-white">{formatPrice(item.price * item.quantity)}</p>
+                              <p className="font-bold text-white">{formatPrice(item.product!.price * item.quantity)}</p>
                             </div>
                             <button
-                              onClick={() => removeItem(item.id)}
+                              onClick={() => removeFromCart(item.id)}
                               className="p-2 hover:bg-red-600 rounded-full transition-colors text-red-400 hover:text-white"
                             >
                               <Trash2 className="w-4 h-4" />
@@ -248,9 +192,12 @@ const Cart = () => {
                           </div>
                         </div>
                       </div>
-                      <button className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 mb-4">
+                      <Link 
+                        to="/checkout"
+                        className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 mb-4 text-center block"
+                      >
                         Proceed to Checkout
-                      </button>
+                      </Link>
                       <Link
                         to="/shop"
                         className="w-full bg-gray-700 hover:bg-gray-600 py-3 rounded-full font-semibold transition-colors text-center block"

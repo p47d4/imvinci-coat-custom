@@ -3,37 +3,12 @@ import React, { useState } from 'react';
 import { Menu, X, User, ShoppingCart, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCart } from '@/hooks/useCart';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
-  
-  // Get cart items from localStorage or context (simplified for now)
-  const getCartItemCount = () => {
-    try {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      return cart.length;
-    } catch {
-      return 0;
-    }
-  };
-
-  const [cartItemCount, setCartItemCount] = useState(getCartItemCount());
-
-  // Listen for storage changes to update cart count
-  React.useEffect(() => {
-    const handleStorageChange = () => {
-      setCartItemCount(getCartItemCount());
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('cartUpdated', handleStorageChange);
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('cartUpdated', handleStorageChange);
-    };
-  }, []);
+  const { totalItems } = useCart();
 
   const handleSignOut = async () => {
     await signOut();
@@ -72,9 +47,9 @@ export const Header = () => {
                 </Link>
                 <Link to="/cart" className="p-2 hover:bg-gray-800 rounded-full transition-colors relative">
                   <ShoppingCart className="w-6 h-6" />
-                  {cartItemCount > 0 && (
+                  {totalItems > 0 && (
                     <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
-                      {cartItemCount}
+                      {totalItems}
                     </span>
                   )}
                 </Link>
@@ -122,9 +97,9 @@ export const Header = () => {
                   <Link to="/cart" className="flex items-center space-x-2 hover:text-red-400 transition-colors relative">
                     <div className="relative">
                       <ShoppingCart className="w-5 h-5" />
-                      {cartItemCount > 0 && (
+                      {totalItems > 0 && (
                         <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-bold">
-                          {cartItemCount}
+                          {totalItems}
                         </span>
                       )}
                     </div>

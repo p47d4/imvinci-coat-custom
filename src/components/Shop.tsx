@@ -1,8 +1,8 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCart } from '@/hooks/useCart';
 
 const products = [
   {
@@ -60,49 +60,11 @@ const categories = ['All', 'Coatings', 'Accessories', 'Protection', 'Maintenance
 export const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const { user } = useAuth();
-  
-  // Get cart from localStorage
-  const getCart = () => {
-    try {
-      return JSON.parse(localStorage.getItem('cart') || '[]');
-    } catch {
-      return [];
-    }
-  };
-
-  const [cart, setCart] = useState<number[]>(getCart());
-
-  // Update cart state when localStorage changes (from other components)
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setCart(getCart());
-    };
-
-    const handleCartUpdate = () => {
-      setCart(getCart());
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('cartUpdated', handleCartUpdate);
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('cartUpdated', handleCartUpdate);
-    };
-  }, []);
+  const { addToCart, totalItems } = useCart();
 
   const filteredProducts = selectedCategory === 'All' 
     ? products 
     : products.filter(product => product.category === selectedCategory);
-
-  const addToCart = (productId: number) => {
-    const updatedCart = [...cart, productId];
-    setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    
-    // Trigger custom event to update header and other components
-    window.dispatchEvent(new CustomEvent('cartUpdated'));
-  };
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-NG', {
@@ -186,16 +148,16 @@ export const Shop = () => {
         </div>
 
         {/* Cart Summary - Only show if user is logged in */}
-        {user && cart.length > 0 && (
+        {user && totalItems > 0 && (
           <div className="fixed bottom-6 right-6 bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-2xl shadow-2xl">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <ShoppingCart className="w-6 h-6" />
                 <span className="absolute -top-2 -right-2 bg-white text-red-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
-                  {cart.length}
+                  {totalItems}
                 </span>
               </div>
-              <span className="font-semibold">{cart.length} items in cart</span>
+              <span className="font-semibold">{totalItems} items in cart</span>
               <Link 
                 to="/cart"
                 className="bg-white text-red-600 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors"
