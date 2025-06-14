@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -71,6 +72,25 @@ export const Shop = () => {
 
   const [cart, setCart] = useState<number[]>(getCart());
 
+  // Update cart state when localStorage changes (from other components)
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setCart(getCart());
+    };
+
+    const handleCartUpdate = () => {
+      setCart(getCart());
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+    };
+  }, []);
+
   const filteredProducts = selectedCategory === 'All' 
     ? products 
     : products.filter(product => product.category === selectedCategory);
@@ -80,7 +100,7 @@ export const Shop = () => {
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     
-    // Trigger custom event to update header
+    // Trigger custom event to update header and other components
     window.dispatchEvent(new CustomEvent('cartUpdated'));
   };
 

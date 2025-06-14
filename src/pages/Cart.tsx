@@ -1,42 +1,140 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ShoppingCart, Plus, Minus, Trash2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// Product data (in a real app, this would come from an API)
+const products = [
+  {
+    id: 1,
+    name: 'Ceramic Coating Kit',
+    price: 119600,
+    image: 'https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-4.0.3'
+  },
+  {
+    id: 2,
+    name: 'Microfiber Cloth Set',
+    price: 19600,
+    image: 'https://images.unsplash.com/photo-1563396983906-b3795482a59a?ixlib=rb-4.0.3'
+  },
+  {
+    id: 3,
+    name: 'Paint Protection Film',
+    price: 79600,
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3'
+  },
+  {
+    id: 4,
+    name: 'Detail Spray',
+    price: 15600,
+    image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3'
+  },
+  {
+    id: 5,
+    name: 'Polishing Pads',
+    price: 31600,
+    image: 'https://images.unsplash.com/photo-1559056961-84c8f7c8d9f4?ixlib=rb-4.0.3'
+  },
+  {
+    id: 6,
+    name: 'Glass Coating',
+    price: 59600,
+    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3'
+  }
+];
+
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: 'Ceramic Coating Kit',
-      price: 119600,
-      quantity: 2,
-      image: 'https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-4.0.3'
-    },
-    {
-      id: 2,
-      name: 'Microfiber Cloth Set',
-      price: 19600,
-      quantity: 1,
-      image: 'https://images.unsplash.com/photo-1563396983906-b3795482a59a?ixlib=rb-4.0.3'
-    }
-  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  // Load cart from localStorage and convert to cart items
+  useEffect(() => {
+    const loadCart = () => {
+      try {
+        const cartData = JSON.parse(localStorage.getItem('cart') || '[]');
+        
+        // Count quantity of each product
+        const itemCounts = cartData.reduce((acc: Record<number, number>, productId: number) => {
+          acc[productId] = (acc[productId] || 0) + 1;
+          return acc;
+        }, {});
+
+        // Convert to cart items with product details
+        const items: CartItem[] = Object.entries(itemCounts).map(([productId, quantity]) => {
+          const product = products.find(p => p.id === parseInt(productId));
+          if (!product) return null;
+          
+          return {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: quantity as number,
+            image: product.image
+          };
+        }).filter(Boolean) as CartItem[];
+
+        setCartItems(items);
+      } catch {
+        setCartItems([]);
+      }
+    };
+
+    loadCart();
+
+    // Listen for cart updates
+    const handleCartUpdate = () => {
+      loadCart();
+    };
+
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    window.addEventListener('storage', handleCartUpdate);
+
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+      window.removeEventListener('storage', handleCartUpdate);
+    };
+  }, []);
+
+  const updateCart = (newCartItems: CartItem[]) => {
+    // Convert cart items back to array of product IDs
+    const cartData: number[] = [];
+    newCartItems.forEach(item => {
+      for (let i = 0; i < item.quantity; i++) {
+        cartData.push(item.id);
+      }
+    });
+    
+    localStorage.setItem('cart', JSON.stringify(cartData));
+    setCartItems(newCartItems);
+    
+    // Trigger custom event to update header
+    window.dispatchEvent(new CustomEvent('cartUpdated'));
+  };
 
   const updateQuantity = (id: number, newQuantity: number) => {
     if (newQuantity <= 0) {
       removeItem(id);
       return;
     }
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
+    
+    const updatedItems = cartItems.map(item =>
+      item.id === id ? { ...item, quantity: newQuantity } : item
     );
+    updateCart(updatedItems);
   };
 
   const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
+    const updatedItems = cartItems.filter(item => item.id !== id);
+    updateCart(updatedItems);
   };
 
   const formatPrice = (price: number) => {
