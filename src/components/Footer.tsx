@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
@@ -53,9 +54,9 @@ export const Footer = () => {
               <li>Phone: +234 (0) 123-456-7890</li>
               <li>Support: support@imvinci.com</li>
               <li>
-                <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 mt-2">
+                <Link to="/quote" className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 mt-2 inline-block">
                   Get Quote
-                </button>
+                </Link>
               </li>
             </ul>
           </div>

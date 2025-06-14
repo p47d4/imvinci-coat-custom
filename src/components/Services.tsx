@@ -35,7 +35,7 @@ export const Services = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Our <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Services</span>
+            Our <span className="bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">Services</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
             Comprehensive protection solutions for all types of vehicles and vessels. 
@@ -47,7 +47,7 @@ export const Services = () => {
           {services.map((service, index) => (
             <div 
               key={index}
-              className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 transform hover:-translate-y-2"
+              className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-2xl hover:shadow-red-500/20 transition-all duration-500 transform hover:-translate-y-2"
             >
               <div className="relative h-64 overflow-hidden">
                 <img 
@@ -57,7 +57,7 @@ export const Services = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
-                  <Car className="w-8 h-8 text-blue-400 mb-2" />
+                  <Car className="w-8 h-8 text-red-400 mb-2" />
                   <h3 className="text-2xl font-bold text-white">{service.title}</h3>
                 </div>
               </div>
@@ -68,13 +68,13 @@ export const Services = () => {
                 <div className="grid grid-cols-2 gap-2 mb-6">
                   {service.features.map((feature, idx) => (
                     <div key={idx} className="flex items-center text-sm text-gray-400">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                      <div className="w-2 h-2 bg-red-400 rounded-full mr-2"></div>
                       {feature}
                     </div>
                   ))}
                 </div>
                 
-                <button className="w-full bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-400/30 hover:from-blue-600 hover:to-purple-600 hover:border-blue-400 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300">
+                <button className="w-full bg-gradient-to-r from-red-600/20 to-red-700/20 border border-red-400/30 hover:from-red-600 hover:to-red-700 hover:border-red-400 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300">
                   Learn More
                 </button>
               </div>

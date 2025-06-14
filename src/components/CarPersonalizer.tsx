@@ -21,7 +21,7 @@ export const CarPersonalizer = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-4">
-            <Palette className="w-8 h-8 text-blue-400 mr-3" />
+            <Palette className="w-8 h-8 text-red-400 mr-3" />
             <h2 className="text-4xl md:text-5xl font-bold">
               Personalize Your Vehicle
             </h2>
@@ -54,7 +54,7 @@ export const CarPersonalizer = () => {
               <div className="text-center">
                 <h4 className="text-xl font-semibold mb-2">{selectedColor.name}</h4>
                 {selectedColor.premium && (
-                  <span className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 py-1 rounded-full text-sm font-semibold">
+                  <span className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
                     Premium
                   </span>
                 )}
@@ -72,7 +72,7 @@ export const CarPersonalizer = () => {
                   onClick={() => setSelectedColor(color)}
                   className={`group relative p-4 rounded-xl border-2 transition-all duration-300 ${
                     selectedColor.name === color.name
-                      ? 'border-blue-400 shadow-lg shadow-blue-400/25'
+                      ? 'border-red-400 shadow-lg shadow-red-400/25'
                       : 'border-gray-600 hover:border-gray-400'
                   }`}
                 >
@@ -82,7 +82,7 @@ export const CarPersonalizer = () => {
                   ></div>
                   <p className="text-sm font-medium text-center">{color.name}</p>
                   {color.premium && (
-                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs px-2 py-1 rounded-full font-semibold">
+                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs px-2 py-1 rounded-full font-semibold">
                       Premium
                     </div>
                   )}
@@ -91,7 +91,7 @@ export const CarPersonalizer = () => {
             </div>
 
             <div className="space-y-4">
-              <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
+              <button className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-6 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
                 Request Quote for {selectedColor.name}
               </button>
               <button className="w-full border border-gray-400 text-gray-300 hover:text-white hover:border-white px-6 py-4 rounded-xl font-semibold transition-all duration-300">

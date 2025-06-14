@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,13 +19,13 @@ export const Header = () => {
           </div>
           
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="hover:text-blue-400 transition-colors">Home</a>
-            <a href="#personalizer" className="hover:text-blue-400 transition-colors">Personalizer</a>
-            <a href="#services" className="hover:text-blue-400 transition-colors">Services</a>
-            <a href="#shop" className="hover:text-blue-400 transition-colors">Shop</a>
-            <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105">
+            <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
+            <Link to="/personalizer" className="hover:text-red-400 transition-colors">Personalizer</Link>
+            <Link to="/services" className="hover:text-red-400 transition-colors">Services</Link>
+            <Link to="/shop" className="hover:text-red-400 transition-colors">Shop</Link>
+            <Link to="/quote" className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105">
               Get Quote
-            </button>
+            </Link>
           </nav>
 
           <button 
@@ -38,13 +39,13 @@ export const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-gray-800 pt-4">
             <nav className="flex flex-col space-y-4">
-              <a href="#home" className="hover:text-blue-400 transition-colors">Home</a>
-              <a href="#personalizer" className="hover:text-blue-400 transition-colors">Personalizer</a>
-              <a href="#services" className="hover:text-blue-400 transition-colors">Services</a>
-              <a href="#shop" className="hover:text-blue-400 transition-colors">Shop</a>
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2 rounded-full w-fit">
+              <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
+              <Link to="/personalizer" className="hover:text-red-400 transition-colors">Personalizer</Link>
+              <Link to="/services" className="hover:text-red-400 transition-colors">Services</Link>
+              <Link to="/shop" className="hover:text-red-400 transition-colors">Shop</Link>
+              <Link to="/quote" className="bg-gradient-to-r from-red-600 to-red-700 px-6 py-2 rounded-full w-fit">
                 Get Quote
-              </button>
+              </Link>
             </nav>
           </div>
         )}
