@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -57,14 +58,29 @@ const categories = ['All', 'Coatings', 'Accessories', 'Protection', 'Maintenance
 
 export const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [cart, setCart] = useState<number[]>([]);
+  
+  // Get cart from localStorage
+  const getCart = () => {
+    try {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
+    } catch {
+      return [];
+    }
+  };
+
+  const [cart, setCart] = useState<number[]>(getCart());
 
   const filteredProducts = selectedCategory === 'All' 
     ? products 
     : products.filter(product => product.category === selectedCategory);
 
   const addToCart = (productId: number) => {
-    setCart([...cart, productId]);
+    const updatedCart = [...cart, productId];
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    
+    // Trigger custom event to update header
+    window.dispatchEvent(new CustomEvent('cartUpdated'));
   };
 
   const formatPrice = (price: number) => {
@@ -152,7 +168,12 @@ export const Shop = () => {
         {cart.length > 0 && (
           <div className="fixed bottom-6 right-6 bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-2xl shadow-2xl">
             <div className="flex items-center gap-3">
-              <ShoppingCart className="w-6 h-6" />
+              <div className="relative">
+                <ShoppingCart className="w-6 h-6" />
+                <span className="absolute -top-2 -right-2 bg-white text-red-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  {cart.length}
+                </span>
+              </div>
               <span className="font-semibold">{cart.length} items in cart</span>
               <Link 
                 to="/cart"
