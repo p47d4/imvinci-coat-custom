@@ -1,13 +1,12 @@
 
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <header className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-sm border-b border-gray-800">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
@@ -19,17 +18,17 @@ export const Header = () => {
           </div>
           
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-black hover:text-red-600 transition-colors font-medium">Home</Link>
-            <Link to="/personalizer" className="text-black hover:text-red-600 transition-colors font-medium">Personalizer</Link>
-            <Link to="/services" className="text-black hover:text-red-600 transition-colors font-medium">Services</Link>
-            <Link to="/shop" className="text-black hover:text-red-600 transition-colors font-medium">Shop</Link>
-            <button className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105 font-medium">
+            <a href="#home" className="hover:text-blue-400 transition-colors">Home</a>
+            <a href="#personalizer" className="hover:text-blue-400 transition-colors">Personalizer</a>
+            <a href="#services" className="hover:text-blue-400 transition-colors">Services</a>
+            <a href="#shop" className="hover:text-blue-400 transition-colors">Shop</a>
+            <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105">
               Get Quote
             </button>
           </nav>
 
           <button 
-            className="md:hidden text-black"
+            className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -37,13 +36,13 @@ export const Header = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
+          <div className="md:hidden mt-4 pb-4 border-t border-gray-800 pt-4">
             <nav className="flex flex-col space-y-4">
-              <Link to="/" className="text-black hover:text-red-600 transition-colors font-medium">Home</Link>
-              <Link to="/personalizer" className="text-black hover:text-red-600 transition-colors font-medium">Personalizer</Link>
-              <Link to="/services" className="text-black hover:text-red-600 transition-colors font-medium">Services</Link>
-              <Link to="/shop" className="text-black hover:text-red-600 transition-colors font-medium">Shop</Link>
-              <button className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full w-fit font-medium">
+              <a href="#home" className="hover:text-blue-400 transition-colors">Home</a>
+              <a href="#personalizer" className="hover:text-blue-400 transition-colors">Personalizer</a>
+              <a href="#services" className="hover:text-blue-400 transition-colors">Services</a>
+              <a href="#shop" className="hover:text-blue-400 transition-colors">Shop</a>
+              <button className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2 rounded-full w-fit">
                 Get Quote
               </button>
             </nav>
