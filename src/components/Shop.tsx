@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 const products = [
   {
@@ -58,6 +58,7 @@ const categories = ['All', 'Coatings', 'Accessories', 'Protection', 'Maintenance
 
 export const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const { user } = useAuth();
   
   // Get cart from localStorage
   const getCart = () => {
@@ -164,8 +165,8 @@ export const Shop = () => {
           ))}
         </div>
 
-        {/* Cart Summary */}
-        {cart.length > 0 && (
+        {/* Cart Summary - Only show if user is logged in */}
+        {user && cart.length > 0 && (
           <div className="fixed bottom-6 right-6 bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-2xl shadow-2xl">
             <div className="flex items-center gap-3">
               <div className="relative">
