@@ -1,61 +1,12 @@
+
 import React, { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/hooks/useCart';
-
-const products = [
-  {
-    id: 1,
-    name: 'Ceramic Coating Kit',
-    price: 119600,
-    image: 'https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-4.0.3',
-    description: 'Professional-grade ceramic coating kit for DIY application',
-    category: 'Coatings'
-  },
-  {
-    id: 2,
-    name: 'Microfiber Cloth Set',
-    price: 19600,
-    image: 'https://images.unsplash.com/photo-1563396983906-b3795482a59a?ixlib=rb-4.0.3',
-    description: 'Premium microfiber cloths for perfect application',
-    category: 'Accessories'
-  },
-  {
-    id: 3,
-    name: 'Paint Protection Film',
-    price: 79600,
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3',
-    description: 'Clear protective film for high-impact areas',
-    category: 'Protection'
-  },
-  {
-    id: 4,
-    name: 'Detail Spray',
-    price: 15600,
-    image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3',
-    description: 'Professional detail spray for maintenance',
-    category: 'Maintenance'
-  },
-  {
-    id: 5,
-    name: 'Polishing Pads',
-    price: 31600,
-    image: 'https://images.unsplash.com/photo-1559056961-84c8f7c8d9f4?ixlib=rb-4.0.3',
-    description: 'High-quality polishing pads for optimal results',
-    category: 'Tools'
-  },
-  {
-    id: 6,
-    name: 'Glass Coating',
-    price: 59600,
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3',
-    description: 'Specialized coating for windows and glass surfaces',
-    category: 'Coatings'
-  }
-];
-
-const categories = ['All', 'Coatings', 'Accessories', 'Protection', 'Maintenance', 'Tools'];
+import { products, categories } from '@/data/products';
+import { ProductCard } from '@/components/shop/ProductCard';
+import { CategoryFilter } from '@/components/shop/CategoryFilter';
+import { CartSummary } from '@/components/shop/CartSummary';
 
 export const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -65,15 +16,6 @@ export const Shop = () => {
   const filteredProducts = selectedCategory === 'All' 
     ? products 
     : products.filter(product => product.category === selectedCategory);
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-NG', {
-      style: 'currency',
-      currency: 'NGN',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price);
-  };
 
   return (
     <section id="shop" className="py-20 bg-gradient-to-b from-black to-gray-900">
@@ -91,82 +33,26 @@ export const Shop = () => {
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                selectedCategory === category
-                  ? 'bg-gradient-to-r from-red-600 to-red-700 text-white'
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+        <CategoryFilter 
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+        />
 
-        {/* Products Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => (
-            <div 
+            <ProductCard
               key={product.id}
-              className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-2xl hover:shadow-red-500/20 transition-all duration-500 transform hover:-translate-y-2"
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  {product.category}
-                </div>
-              </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2">{product.name}</h3>
-                <p className="text-gray-400 mb-4 text-sm">{product.description}</p>
-                
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-white">
-                    {formatPrice(product.price)}
-                  </span>
-                  <button
-                    onClick={() => addToCart(product.id)}
-                    className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-6 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
-                  >
-                    <ShoppingCart className="w-4 h-4" />
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
+              product={product}
+              onAddToCart={addToCart}
+            />
           ))}
         </div>
 
-        {/* Cart Summary - Only show if user is logged in */}
-        {user && totalItems > 0 && (
-          <div className="fixed bottom-6 right-6 bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-2xl shadow-2xl">
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <ShoppingCart className="w-6 h-6" />
-                <span className="absolute -top-2 -right-2 bg-white text-red-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
-                  {totalItems}
-                </span>
-              </div>
-              <span className="font-semibold">{totalItems} items in cart</span>
-              <Link 
-                to="/cart"
-                className="bg-white text-red-600 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-              >
-                View Cart
-              </Link>
-            </div>
-          </div>
-        )}
+        <CartSummary 
+          totalItems={totalItems}
+          isVisible={user !== null && totalItems > 0}
+        />
       </div>
     </section>
   );

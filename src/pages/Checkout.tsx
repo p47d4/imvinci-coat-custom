@@ -1,52 +1,14 @@
 import React, { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { ShoppingCart, CreditCard, MapPin, User, Phone, Mail } from 'lucide-react';
+import { ShoppingCart, CreditCard, MapPin, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-
-// Product data (in a real app, this would come from an API)
-const products = [
-  {
-    id: 1,
-    name: 'Ceramic Coating Kit',
-    price: 119600,
-    image: 'https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-4.0.3'
-  },
-  {
-    id: 2,
-    name: 'Microfiber Cloth Set',
-    price: 19600,
-    image: 'https://images.unsplash.com/photo-1563396983906-b3795482a59a?ixlib=rb-4.0.3'
-  },
-  {
-    id: 3,
-    name: 'Paint Protection Film',
-    price: 79600,
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3'
-  },
-  {
-    id: 4,
-    name: 'Detail Spray',
-    price: 15600,
-    image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3'
-  },
-  {
-    id: 5,
-    name: 'Polishing Pads',
-    price: 31600,
-    image: 'https://images.unsplash.com/photo-1559056961-84c8f7c8d9f4?ixlib=rb-4.0.3'
-  },
-  {
-    id: 6,
-    name: 'Glass Coating',
-    price: 59600,
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3'
-  }
-];
+import { getProductById } from '@/data/products';
+import { formatPrice, calculateSubtotal, calculateTax, calculateTotal } from '@/utils/pricing';
 
 interface CheckoutForm {
   firstName: string;
@@ -77,29 +39,19 @@ const Checkout = () => {
     paymentMethod: 'card'
   });
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-NG', {
-      style: 'currency',
-      currency: 'NGN',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price);
-  };
-
-  // Get product details for cart items
   const cartItemsWithDetails = cartItems.map(cartItem => {
-    const product = products.find(p => p.id === cartItem.product_id);
-    return {
-      ...cartItem,
-      product
-    };
-  }).filter(item => item.product);
+    const product = getProductById(cartItem.product_id);
+    return product ? { ...cartItem, product } : null;
+  }).filter(Boolean);
 
-  const subtotal = cartItemsWithDetails.reduce((sum, item) => {
-    return sum + (item.product!.price * item.quantity);
-  }, 0);
-  const tax = subtotal * 0.075;
-  const total = subtotal + tax;
+  const subtotal = calculateSubtotal(
+    cartItemsWithDetails.map(item => ({
+      price: item!.product.price,
+      quantity: item!.quantity
+    }))
+  );
+  const tax = calculateTax(subtotal);
+  const total = calculateTotal(subtotal, tax);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -116,13 +68,12 @@ const Checkout = () => {
     setProcessing(true);
 
     try {
-      // Save purchases to database
       const purchaseItems = cartItemsWithDetails.map(item => ({
         user_id: user.id,
-        item_name: item.product!.name,
-        quantity: item.quantity,
-        unit_price: item.product!.price,
-        total_cost: item.product!.price * item.quantity
+        item_name: item!.product.name,
+        quantity: item!.quantity,
+        unit_price: item!.product.price,
+        total_cost: item!.product.price * item!.quantity
       }));
 
       const { error } = await supabase
@@ -131,7 +82,6 @@ const Checkout = () => {
 
       if (error) throw error;
 
-      // Clear cart
       await clearCart();
 
       toast({
@@ -139,8 +89,6 @@ const Checkout = () => {
         description: "Thank you for your purchase. You will receive a confirmation email shortly.",
       });
 
-      // In a real app, you would redirect to a success page
-      // For now, we'll redirect to the shop
       window.location.href = '/shop';
 
     } catch (error) {
@@ -376,18 +324,18 @@ const Checkout = () => {
                     <h2 className="text-2xl font-bold mb-6 text-red-400">Order Summary</h2>
                     <div className="space-y-4 mb-6">
                       {cartItemsWithDetails.map((item) => (
-                        <div key={item.id} className="flex items-center space-x-3">
+                        <div key={item!.id} className="flex items-center space-x-3">
                           <img
-                            src={item.product!.image}
-                            alt={item.product!.name}
+                            src={item!.product.image}
+                            alt={item!.product.name}
                             className="w-12 h-12 object-cover rounded-lg"
                           />
                           <div className="flex-1">
-                            <h4 className="text-sm font-medium text-white">{item.product!.name}</h4>
-                            <p className="text-xs text-gray-400">Qty: {item.quantity}</p>
+                            <h4 className="text-sm font-medium text-white">{item!.product.name}</h4>
+                            <p className="text-xs text-gray-400">Qty: {item!.quantity}</p>
                           </div>
                           <span className="text-sm font-semibold text-white">
-                            {formatPrice(item.product!.price * item.quantity)}
+                            {formatPrice(item!.product.price * item!.quantity)}
                           </span>
                         </div>
                       ))}

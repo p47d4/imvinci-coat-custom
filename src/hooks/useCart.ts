@@ -1,16 +1,16 @@
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-
-interface CartItem {
-  id: string;
-  product_id: number;
-  quantity: number;
-  created_at: string;
-  updated_at: string;
-}
+import { CartItem } from '@/types/cart';
+import { 
+  loadCartItems, 
+  addItemToCart, 
+  updateItemInCart, 
+  updateCartItemQuantity, 
+  removeCartItem, 
+  clearAllCartItems 
+} from '@/utils/cartUtils';
 
 export const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -18,8 +18,7 @@ export const useCart = () => {
   const { user } = useAuth();
   const { toast } = useToast();
 
-  // Load cart items from database
-  const loadCartItems = async () => {
+  const loadCart = async () => {
     if (!user) {
       setCartItems([]);
       setLoading(false);
@@ -27,14 +26,8 @@ export const useCart = () => {
     }
 
     try {
-      const { data, error } = await supabase
-        .from('cart_items')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setCartItems(data || []);
+      const items = await loadCartItems(user.id);
+      setCartItems(items);
     } catch (error) {
       console.error('Error loading cart items:', error);
       toast({
@@ -47,7 +40,6 @@ export const useCart = () => {
     }
   };
 
-  // Add item to cart
   const addToCart = async (productId: number) => {
     if (!user) {
       toast({
@@ -59,36 +51,15 @@ export const useCart = () => {
     }
 
     try {
-      // Check if item already exists in cart
       const existingItem = cartItems.find(item => item.product_id === productId);
 
       if (existingItem) {
-        // Update quantity
-        const { error } = await supabase
-          .from('cart_items')
-          .update({ 
-            quantity: existingItem.quantity + 1,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', existingItem.id)
-          .eq('user_id', user.id);
-
-        if (error) throw error;
+        await updateItemInCart(user.id, existingItem.id, existingItem.quantity);
       } else {
-        // Insert new item
-        const { error } = await supabase
-          .from('cart_items')
-          .insert([{
-            user_id: user.id,
-            product_id: productId,
-            quantity: 1
-          }]);
-
-        if (error) throw error;
+        await addItemToCart(user.id, productId);
       }
 
-      // Reload cart items
-      await loadCartItems();
+      await loadCart();
       
       toast({
         title: "Added to cart",
@@ -104,7 +75,6 @@ export const useCart = () => {
     }
   };
 
-  // Update item quantity
   const updateQuantity = async (itemId: string, newQuantity: number) => {
     if (!user) return;
 
@@ -114,18 +84,7 @@ export const useCart = () => {
     }
 
     try {
-      const { error } = await supabase
-        .from('cart_items')
-        .update({ 
-          quantity: newQuantity,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', itemId)
-        .eq('user_id', user.id);
-
-      if (error) throw error;
-      
-      // Update local state
+      await updateCartItemQuantity(user.id, itemId, newQuantity);
       setCartItems(prev => 
         prev.map(item => 
           item.id === itemId 
@@ -143,20 +102,11 @@ export const useCart = () => {
     }
   };
 
-  // Remove item from cart
   const removeFromCart = async (itemId: string) => {
     if (!user) return;
 
     try {
-      const { error } = await supabase
-        .from('cart_items')
-        .delete()
-        .eq('id', itemId)
-        .eq('user_id', user.id);
-
-      if (error) throw error;
-      
-      // Update local state
+      await removeCartItem(user.id, itemId);
       setCartItems(prev => prev.filter(item => item.id !== itemId));
       
       toast({
@@ -173,18 +123,11 @@ export const useCart = () => {
     }
   };
 
-  // Clear cart
   const clearCart = async () => {
     if (!user) return;
 
     try {
-      const { error } = await supabase
-        .from('cart_items')
-        .delete()
-        .eq('user_id', user.id);
-
-      if (error) throw error;
-      
+      await clearAllCartItems(user.id);
       setCartItems([]);
       
       toast({
@@ -201,7 +144,6 @@ export const useCart = () => {
     }
   };
 
-  // Migrate localStorage cart to database (call this once when user logs in)
   const migrateLocalStorageCart = async () => {
     if (!user) return;
 
@@ -209,13 +151,11 @@ export const useCart = () => {
       const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
       if (localCart.length === 0) return;
 
-      // Count quantity of each product
       const itemCounts = localCart.reduce((acc: Record<number, number>, productId: number) => {
         acc[productId] = (acc[productId] || 0) + 1;
         return acc;
       }, {});
 
-      // Insert items into database
       const cartItemsToInsert = Object.entries(itemCounts).map(([productId, quantity]) => ({
         user_id: user.id,
         product_id: parseInt(productId),
@@ -228,11 +168,8 @@ export const useCart = () => {
 
       if (error) throw error;
 
-      // Clear localStorage
       localStorage.removeItem('cart');
-      
-      // Reload cart items
-      await loadCartItems();
+      await loadCart();
 
       if (cartItemsToInsert.length > 0) {
         toast({
@@ -248,7 +185,7 @@ export const useCart = () => {
   useEffect(() => {
     if (user) {
       migrateLocalStorageCart();
-      loadCartItems();
+      loadCart();
     } else {
       setCartItems([]);
       setLoading(false);
@@ -265,6 +202,6 @@ export const useCart = () => {
     updateQuantity,
     removeFromCart,
     clearCart,
-    loadCartItems
+    loadCartItems: loadCart
   };
 };
