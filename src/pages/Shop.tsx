@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer';
 
 const ShopPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <Header />
       <div className="pt-20">
         <Shop />
