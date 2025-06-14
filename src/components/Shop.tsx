@@ -6,7 +6,7 @@ const products = [
   {
     id: 1,
     name: 'Ceramic Coating Kit',
-    price: 299,
+    price: 119600,
     image: 'https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-4.0.3',
     description: 'Professional-grade ceramic coating kit for DIY application',
     category: 'Coatings'
@@ -14,7 +14,7 @@ const products = [
   {
     id: 2,
     name: 'Microfiber Cloth Set',
-    price: 49,
+    price: 19600,
     image: 'https://images.unsplash.com/photo-1563396983906-b3795482a59a?ixlib=rb-4.0.3',
     description: 'Premium microfiber cloths for perfect application',
     category: 'Accessories'
@@ -22,7 +22,7 @@ const products = [
   {
     id: 3,
     name: 'Paint Protection Film',
-    price: 199,
+    price: 79600,
     image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3',
     description: 'Clear protective film for high-impact areas',
     category: 'Protection'
@@ -30,7 +30,7 @@ const products = [
   {
     id: 4,
     name: 'Detail Spray',
-    price: 39,
+    price: 15600,
     image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3',
     description: 'Professional detail spray for maintenance',
     category: 'Maintenance'
@@ -38,7 +38,7 @@ const products = [
   {
     id: 5,
     name: 'Polishing Pads',
-    price: 79,
+    price: 31600,
     image: 'https://images.unsplash.com/photo-1559056961-84c8f7c8d9f4?ixlib=rb-4.0.3',
     description: 'High-quality polishing pads for optimal results',
     category: 'Tools'
@@ -46,7 +46,7 @@ const products = [
   {
     id: 6,
     name: 'Glass Coating',
-    price: 149,
+    price: 59600,
     image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3',
     description: 'Specialized coating for windows and glass surfaces',
     category: 'Coatings'
@@ -65,6 +65,15 @@ export const Shop = () => {
 
   const addToCart = (productId: number) => {
     setCart([...cart, productId]);
+  };
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(price);
   };
 
   return (
@@ -124,7 +133,7 @@ export const Shop = () => {
                 
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-white">
-                    ${product.price}
+                    {formatPrice(product.price)}
                   </span>
                   <button
                     onClick={() => addToCart(product.id)}

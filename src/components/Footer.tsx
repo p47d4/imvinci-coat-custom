@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Car } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -10,11 +9,11 @@ export const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <Car className="w-8 h-8 text-blue-400" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                IMVINCI
-              </span>
-              <span className="text-sm text-gray-400 ml-2">LTD</span>
+              <img 
+                src="/lovable-uploads/400aaf1e-725d-413f-bab6-1ddb2522589b.png" 
+                alt="Imvinci Ltd Logo" 
+                className="h-8 w-auto"
+              />
             </div>
             <p className="text-gray-400 mb-4">
               Next-generation coating technologies for ultimate vehicle and vessel protection.
@@ -51,7 +50,7 @@ export const Footer = () => {
             <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
             <ul className="space-y-2 text-gray-400">
               <li>Email: info@imvinci.com</li>
-              <li>Phone: +1 (555) 123-4567</li>
+              <li>Phone: +234 (0) 123-456-7890</li>
               <li>Support: support@imvinci.com</li>
               <li>
                 <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 mt-2">
@@ -63,7 +62,7 @@ export const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
-          <p>&copy; 2024 Imvinci Ltd. All rights reserved. Advanced coating technologies for elite protection.</p>
+          <p>&copy; 2025 Imvinci Ltd. All rights reserved. Advanced coating technologies for elite protection.</p>
         </div>
       </div>
     </footer>
