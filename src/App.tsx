@@ -9,6 +9,8 @@ import Personalizer from "./pages/Personalizer";
 import ServicesPage from "./pages/Services";
 import ShopPage from "./pages/Shop";
 import GetQuote from "./pages/GetQuote";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +27,8 @@ const App = () => (
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/quote" element={<GetQuote />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

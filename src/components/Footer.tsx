@@ -39,7 +39,7 @@ export const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Company</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><a href="#" className="hover:text-white transition-colors">Technology</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Quality Standards</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
@@ -53,6 +53,9 @@ export const Footer = () => {
               <li>Email: info@imvinci.com</li>
               <li>Phone: +234 (0) 123-456-7890</li>
               <li>Support: support@imvinci.com</li>
+              <li>
+                <Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link>
+              </li>
               <li>
                 <Link to="/quote" className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 mt-2 inline-block">
                   Get Quote
