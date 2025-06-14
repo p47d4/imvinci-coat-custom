@@ -1,23 +1,19 @@
 
 import React from 'react';
 import { Header } from '@/components/Header';
-import { Hero } from '@/components/Hero';
-import { CarPersonalizer } from '@/components/CarPersonalizer';
 import { Services } from '@/components/Services';
-import { Shop } from '@/components/Shop';
 import { Footer } from '@/components/Footer';
 
-const Index = () => {
+const ServicesPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <Header />
-      <Hero />
-      <CarPersonalizer />
-      <Services />
-      <Shop />
+      <div className="pt-20">
+        <Services />
+      </div>
       <Footer />
     </div>
   );
 };
 
-export default Index;
+export default ServicesPage;

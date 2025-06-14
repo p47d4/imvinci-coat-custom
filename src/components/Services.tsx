@@ -31,13 +31,13 @@ const services = [
 
 export const Services = () => {
   return (
-    <section id="services" className="py-20 bg-gradient-to-b from-gray-900 to-black">
+    <section id="services" className="py-20 bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Our <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Services</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">
+            Our <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">Services</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-blue-700 max-w-3xl mx-auto">
             Comprehensive protection solutions for all types of vehicles and vessels. 
             Each service is engineered with precision and backed by our commitment to excellence.
           </p>
@@ -47,7 +47,7 @@ export const Services = () => {
           {services.map((service, index) => (
             <div 
               key={index}
-              className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 transform hover:-translate-y-2"
+              className="group bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl border border-blue-100 transition-all duration-500 transform hover:-translate-y-2"
             >
               <div className="relative h-64 overflow-hidden">
                 <img 
@@ -55,7 +55,7 @@ export const Services = () => {
                   alt={service.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
                   <Car className="w-8 h-8 text-blue-400 mb-2" />
                   <h3 className="text-2xl font-bold text-white">{service.title}</h3>
@@ -63,18 +63,18 @@ export const Services = () => {
               </div>
               
               <div className="p-6">
-                <p className="text-gray-300 mb-6 leading-relaxed">{service.description}</p>
+                <p className="text-blue-700 mb-6 leading-relaxed">{service.description}</p>
                 
                 <div className="grid grid-cols-2 gap-2 mb-6">
                   {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center text-sm text-gray-400">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                    <div key={idx} className="flex items-center text-sm text-blue-600">
+                      <div className="w-2 h-2 bg-blue-600 rounded-full mr-2"></div>
                       {feature}
                     </div>
                   ))}
                 </div>
                 
-                <button className="w-full bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-400/30 hover:from-blue-600 hover:to-purple-600 hover:border-blue-400 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300">
+                <button className="w-full bg-gradient-to-r from-blue-50 to-blue-100 border-2 border-blue-200 hover:from-blue-600 hover:to-blue-800 hover:text-white text-blue-700 px-6 py-3 rounded-xl font-semibold transition-all duration-300">
                   Learn More
                 </button>
               </div>

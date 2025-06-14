@@ -17,16 +17,16 @@ export const CarPersonalizer = () => {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
 
   return (
-    <section id="personalizer" className="py-20 bg-gradient-to-b from-black to-gray-900">
+    <section id="personalizer" className="py-20 bg-gradient-to-b from-white to-blue-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-4">
-            <Palette className="w-8 h-8 text-blue-400 mr-3" />
-            <h2 className="text-4xl md:text-5xl font-bold">
+            <Palette className="w-8 h-8 text-blue-600 mr-3" />
+            <h2 className="text-4xl md:text-5xl font-bold text-blue-900">
               Personalize Your Vehicle
             </h2>
           </div>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-blue-700 max-w-2xl mx-auto">
             Experience our premium coatings with our interactive visualizer. 
             Choose your perfect color and see it come to life.
           </p>
@@ -35,26 +35,26 @@ export const CarPersonalizer = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Car Visualization */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 shadow-2xl">
+            <div className="bg-white rounded-2xl p-8 shadow-xl border border-blue-100">
               <div 
-                className="w-full h-64 rounded-xl mb-6 relative overflow-hidden transition-all duration-500"
+                className="w-full h-64 rounded-xl mb-6 relative overflow-hidden transition-all duration-500 border-2 border-blue-200"
                 style={{ 
                   backgroundColor: selectedColor.value,
                   boxShadow: `0 20px 40px ${selectedColor.value}40`
                 }}
               >
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3')] bg-contain bg-no-repeat bg-center opacity-60 mix-blend-overlay"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
                   <h3 className="text-2xl font-bold">Luxury Sedan</h3>
-                  <p className="text-gray-300">With {selectedColor.name} Coating</p>
+                  <p className="text-gray-200">With {selectedColor.name} Coating</p>
                 </div>
               </div>
               
               <div className="text-center">
-                <h4 className="text-xl font-semibold mb-2">{selectedColor.name}</h4>
+                <h4 className="text-xl font-semibold mb-2 text-blue-900">{selectedColor.name}</h4>
                 {selectedColor.premium && (
-                  <span className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 py-1 rounded-full text-sm font-semibold">
+                  <span className="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-3 py-1 rounded-full text-sm font-semibold">
                     Premium
                   </span>
                 )}
@@ -64,25 +64,25 @@ export const CarPersonalizer = () => {
 
           {/* Color Selection */}
           <div>
-            <h3 className="text-2xl font-bold mb-6">Choose Your Color</h3>
+            <h3 className="text-2xl font-bold mb-6 text-blue-900">Choose Your Color</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
               {colors.map((color) => (
                 <button
                   key={color.name}
                   onClick={() => setSelectedColor(color)}
-                  className={`group relative p-4 rounded-xl border-2 transition-all duration-300 ${
+                  className={`group relative p-4 rounded-xl border-2 transition-all duration-300 bg-white ${
                     selectedColor.name === color.name
-                      ? 'border-blue-400 shadow-lg shadow-blue-400/25'
-                      : 'border-gray-600 hover:border-gray-400'
+                      ? 'border-blue-600 shadow-lg shadow-blue-600/25'
+                      : 'border-blue-200 hover:border-blue-400'
                   }`}
                 >
                   <div
-                    className="w-12 h-12 rounded-full mx-auto mb-2 border-2 border-gray-300"
+                    className="w-12 h-12 rounded-full mx-auto mb-2 border-2 border-blue-200"
                     style={{ backgroundColor: color.value }}
                   ></div>
-                  <p className="text-sm font-medium text-center">{color.name}</p>
+                  <p className="text-sm font-medium text-center text-blue-900">{color.name}</p>
                   {color.premium && (
-                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs px-2 py-1 rounded-full font-semibold">
+                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white text-xs px-2 py-1 rounded-full font-semibold">
                       Premium
                     </div>
                   )}
@@ -91,10 +91,10 @@ export const CarPersonalizer = () => {
             </div>
 
             <div className="space-y-4">
-              <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
+              <button className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
                 Request Quote for {selectedColor.name}
               </button>
-              <button className="w-full border border-gray-400 text-gray-300 hover:text-white hover:border-white px-6 py-4 rounded-xl font-semibold transition-all duration-300">
+              <button className="w-full border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white px-6 py-4 rounded-xl font-semibold transition-all duration-300">
                 Schedule Consultation
               </button>
             </div>

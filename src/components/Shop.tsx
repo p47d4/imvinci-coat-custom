@@ -77,16 +77,16 @@ export const Shop = () => {
   };
 
   return (
-    <section id="shop" className="py-20 bg-gradient-to-b from-black to-gray-900">
+    <section id="shop" className="py-20 bg-gradient-to-b from-white to-blue-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-4">
-            <ShoppingCart className="w-8 h-8 text-blue-400 mr-3" />
-            <h2 className="text-4xl md:text-5xl font-bold">
-              Shop <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Products</span>
+            <ShoppingCart className="w-8 h-8 text-blue-600 mr-3" />
+            <h2 className="text-4xl md:text-5xl font-bold text-blue-900">
+              Shop <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">Products</span>
             </h2>
           </div>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-blue-700 max-w-3xl mx-auto">
             Professional-grade products and accessories to maintain and enhance your vehicle's protection. 
             Everything you need for premium care.
           </p>
@@ -100,8 +100,8 @@ export const Shop = () => {
               onClick={() => setSelectedCategory(category)}
               className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
                 selectedCategory === category
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-lg'
+                  : 'bg-white text-blue-700 border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50'
               }`}
             >
               {category}
@@ -114,7 +114,7 @@ export const Shop = () => {
           {filteredProducts.map((product) => (
             <div 
               key={product.id}
-              className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 transform hover:-translate-y-2"
+              className="group bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl border border-blue-100 transition-all duration-500 transform hover:-translate-y-2"
             >
               <div className="relative h-48 overflow-hidden">
                 <img 
@@ -122,22 +122,22 @@ export const Shop = () => {
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
                   {product.category}
                 </div>
               </div>
               
               <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2">{product.name}</h3>
-                <p className="text-gray-400 mb-4 text-sm">{product.description}</p>
+                <h3 className="text-xl font-bold text-blue-900 mb-2">{product.name}</h3>
+                <p className="text-blue-600 mb-4 text-sm">{product.description}</p>
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-white">
+                  <span className="text-2xl font-bold text-blue-900">
                     {formatPrice(product.price)}
                   </span>
                   <button
                     onClick={() => addToCart(product.id)}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+                    className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
                   >
                     <ShoppingCart className="w-4 h-4" />
                     Add to Cart
@@ -150,11 +150,11 @@ export const Shop = () => {
 
         {/* Cart Summary */}
         {cart.length > 0 && (
-          <div className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-4 rounded-2xl shadow-2xl">
+          <div className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-4 rounded-2xl shadow-2xl">
             <div className="flex items-center gap-3">
               <ShoppingCart className="w-6 h-6" />
               <span className="font-semibold">{cart.length} items in cart</span>
-              <button className="bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+              <button className="bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors">
                 View Cart
               </button>
             </div>
