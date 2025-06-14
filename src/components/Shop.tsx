@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const products = [
   {
@@ -154,9 +154,12 @@ export const Shop = () => {
             <div className="flex items-center gap-3">
               <ShoppingCart className="w-6 h-6" />
               <span className="font-semibold">{cart.length} items in cart</span>
-              <button className="bg-white text-red-600 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+              <Link 
+                to="/cart"
+                className="bg-white text-red-600 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+              >
                 View Cart
-              </button>
+              </Link>
             </div>
           </div>
         )}

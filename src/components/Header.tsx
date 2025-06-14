@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const Header = () => {
@@ -30,12 +30,20 @@ export const Header = () => {
             </Link>
           </nav>
 
-          <button 
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center space-x-4">
+            <Link to="/profile" className="p-2 hover:bg-gray-800 rounded-full transition-colors">
+              <User className="w-6 h-6" />
+            </Link>
+            <Link to="/cart" className="p-2 hover:bg-gray-800 rounded-full transition-colors">
+              <ShoppingCart className="w-6 h-6" />
+            </Link>
+            <button 
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {isMenuOpen && (
@@ -47,6 +55,16 @@ export const Header = () => {
               <Link to="/shop" className="hover:text-red-400 transition-colors">Shop</Link>
               <Link to="/about" className="hover:text-red-400 transition-colors">About</Link>
               <Link to="/contact" className="hover:text-red-400 transition-colors">Contact</Link>
+              <div className="flex items-center space-x-4 pt-4">
+                <Link to="/profile" className="flex items-center space-x-2 hover:text-red-400 transition-colors">
+                  <User className="w-5 h-5" />
+                  <span>Profile</span>
+                </Link>
+                <Link to="/cart" className="flex items-center space-x-2 hover:text-red-400 transition-colors">
+                  <ShoppingCart className="w-5 h-5" />
+                  <span>Cart</span>
+                </Link>
+              </div>
               <Link to="/quote" className="bg-gradient-to-r from-red-600 to-red-700 px-6 py-2 rounded-full w-fit">
                 Get Quote
               </Link>
