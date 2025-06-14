@@ -1,10 +1,13 @@
-
 import React, { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Car, Bike, Ship, Plane, Calendar, User, Mail, Phone } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const GetQuote = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,10 +26,90 @@ const GetQuote = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const extractVehicleDetails = (vehicleModel: string) => {
+    // Try to extract make, model, and year from the input
+    const parts = vehicleModel.trim().split(' ');
+    
+    // Look for a 4-digit year
+    const yearMatch = vehicleModel.match(/\b(19|20)\d{2}\b/);
+    const year = yearMatch ? parseInt(yearMatch[0]) : new Date().getFullYear();
+    
+    if (parts.length >= 2) {
+      const make = parts[0];
+      const model = parts.slice(1).join(' ').replace(/\b(19|20)\d{2}\b/, '').trim();
+      return { make, model, year };
+    }
+    
+    // Fallback if format is not recognized
+    return {
+      make: vehicleModel.split(' ')[0] || 'Unknown',
+      model: vehicleModel,
+      year
+    };
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission here
+    
+    // Check if user is authenticated
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to submit a quote request.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { make, model, year } = extractVehicleDetails(formData.vehicleModel);
+
+      const { error } = await supabase
+        .from('quotes')
+        .insert({
+          user_id: user.id,
+          vehicle_make: make,
+          vehicle_model: model,
+          vehicle_year: year,
+          service_type: formData.serviceType,
+          description: formData.message || null,
+          status: 'pending'
+        });
+
+      if (error) {
+        throw error;
+      }
+
+      toast({
+        title: "Quote Request Submitted!",
+        description: "We've received your quote request and will get back to you soon.",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        vehicleType: '',
+        vehicleModel: '',
+        serviceType: '',
+        message: ''
+      });
+
+    } catch (error) {
+      console.error('Error submitting quote:', error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your quote. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const vehicleTypes = [
@@ -144,13 +227,13 @@ const GetQuote = () => {
 
                 {/* Vehicle Model */}
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Vehicle Make/Model</label>
+                  <label className="block text-sm font-semibold mb-2">Vehicle Make/Model/Year</label>
                   <input
                     type="text"
                     name="vehicleModel"
                     value={formData.vehicleModel}
                     onChange={handleInputChange}
-                    placeholder="e.g., BMW X5, Yamaha R1, Azimut 60"
+                    placeholder="e.g., 2023 BMW X5, 2022 Yamaha R1, 2021 Azimut 60"
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-red-400 focus:outline-none transition-colors"
                     required
                   />
@@ -188,9 +271,10 @@ const GetQuote = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100"
                 >
-                  Request Quote
+                  {isSubmitting ? 'Submitting...' : 'Request Quote'}
                 </button>
               </form>
             </div>
