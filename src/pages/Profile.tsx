@@ -2,9 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { User, Car, ShoppingBag, Calendar, MapPin, Phone, Mail } from 'lucide-react';
+import { User, Car, ShoppingBag, Calendar, MapPin, Phone, Mail, Edit } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
+import { ProfileEditModal } from '@/components/profile/ProfileEditModal';
+import { QuotesHistory } from '@/components/profile/QuotesHistory';
 
 interface UserProfile {
   id: string;
@@ -12,6 +16,7 @@ interface UserProfile {
   full_name: string;
   phone: string;
   location: string;
+  avatar_url: string;
   created_at: string;
 }
 
@@ -33,12 +38,26 @@ interface Purchase {
   purchase_date: string;
 }
 
+interface Quote {
+  id: string;
+  vehicle_make: string;
+  vehicle_model: string;
+  vehicle_year: number;
+  service_type: string;
+  description: string;
+  status: string;
+  estimated_cost: number;
+  created_at: string;
+}
+
 const Profile = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [personalizations, setPersonalizations] = useState<Personalization[]>([]);
   const [purchases, setPurchases] = useState<Purchase[]>([]);
+  const [quotes, setQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(true);
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -79,6 +98,17 @@ const Profile = () => {
 
       if (purchasesData) {
         setPurchases(purchasesData);
+      }
+
+      // Fetch quotes
+      const { data: quotesData } = await supabase
+        .from('quotes')
+        .select('*')
+        .eq('user_id', user!.id)
+        .order('created_at', { ascending: false });
+
+      if (quotesData) {
+        setQuotes(quotesData);
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -138,46 +168,72 @@ const Profile = () => {
 
               {/* Profile Information */}
               <div className="bg-gray-800/50 rounded-2xl p-8 mb-8">
-                <h2 className="text-2xl font-bold mb-6 text-red-400">Personal Information</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="flex items-center space-x-3">
-                    <User className="w-5 h-5 text-red-400" />
-                    <div>
-                      <p className="text-gray-400 text-sm">Name</p>
-                      <p className="text-white font-semibold">{profile?.full_name || 'Not provided'}</p>
-                    </div>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-red-400">Personal Information</h2>
+                  <Button
+                    onClick={() => setEditModalOpen(true)}
+                    className="bg-red-600 hover:bg-red-700 text-white"
+                  >
+                    <Edit className="w-4 h-4 mr-2" />
+                    Edit Profile
+                  </Button>
+                </div>
+                
+                <div className="flex flex-col md:flex-row md:items-start md:space-x-8">
+                  <div className="flex flex-col items-center mb-6 md:mb-0">
+                    <Avatar className="w-32 h-32 mb-4">
+                      <AvatarImage src={profile?.avatar_url} />
+                      <AvatarFallback className="bg-gray-700 text-2xl">
+                        <User className="w-16 h-16 text-gray-400" />
+                      </AvatarFallback>
+                    </Avatar>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Mail className="w-5 h-5 text-red-400" />
-                    <div>
-                      <p className="text-gray-400 text-sm">Email</p>
-                      <p className="text-white font-semibold">{profile?.email || user?.email}</p>
+                  
+                  <div className="flex-1 grid md:grid-cols-2 gap-6">
+                    <div className="flex items-center space-x-3">
+                      <User className="w-5 h-5 text-red-400" />
+                      <div>
+                        <p className="text-gray-400 text-sm">Name</p>
+                        <p className="text-white font-semibold">{profile?.full_name || 'Not provided'}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Phone className="w-5 h-5 text-red-400" />
-                    <div>
-                      <p className="text-gray-400 text-sm">Phone</p>
-                      <p className="text-white font-semibold">{profile?.phone || 'Not provided'}</p>
+                    <div className="flex items-center space-x-3">
+                      <Mail className="w-5 h-5 text-red-400" />
+                      <div>
+                        <p className="text-gray-400 text-sm">Email</p>
+                        <p className="text-white font-semibold">{profile?.email || user?.email}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <MapPin className="w-5 h-5 text-red-400" />
-                    <div>
-                      <p className="text-gray-400 text-sm">Location</p>
-                      <p className="text-white font-semibold">{profile?.location || 'Not provided'}</p>
+                    <div className="flex items-center space-x-3">
+                      <Phone className="w-5 h-5 text-red-400" />
+                      <div>
+                        <p className="text-gray-400 text-sm">Phone</p>
+                        <p className="text-white font-semibold">{profile?.phone || 'Not provided'}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Calendar className="w-5 h-5 text-red-400" />
-                    <div>
-                      <p className="text-gray-400 text-sm">Member Since</p>
-                      <p className="text-white font-semibold">
-                        {profile?.created_at ? formatDate(profile.created_at) : 'Recently joined'}
-                      </p>
+                    <div className="flex items-center space-x-3">
+                      <MapPin className="w-5 h-5 text-red-400" />
+                      <div>
+                        <p className="text-gray-400 text-sm">Location</p>
+                        <p className="text-white font-semibold">{profile?.location || 'Not provided'}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3 md:col-span-2">
+                      <Calendar className="w-5 h-5 text-red-400" />
+                      <div>
+                        <p className="text-gray-400 text-sm">Member Since</p>
+                        <p className="text-white font-semibold">
+                          {profile?.created_at ? formatDate(profile.created_at) : 'Recently joined'}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Quotes History */}
+              <div className="mb-8">
+                <QuotesHistory quotes={quotes} />
               </div>
 
               {/* Personalizations History */}
@@ -245,6 +301,14 @@ const Profile = () => {
           </div>
         </section>
       </div>
+      
+      <ProfileEditModal
+        isOpen={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        profile={profile}
+        onProfileUpdate={fetchUserData}
+      />
+      
       <Footer />
     </div>
   );
