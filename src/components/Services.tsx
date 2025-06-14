@@ -6,25 +6,25 @@ const services = [
   {
     title: 'Automotive Coatings',
     description: 'Premium protective coatings for cars, SUVs, and luxury vehicles. Advanced ceramic technology for ultimate protection.',
-    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3',
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     features: ['Ceramic Protection', 'UV Resistance', '10-Year Warranty', 'Hydrophobic Technology']
   },
   {
     title: 'Motorcycle Protection',
     description: 'Specialized coatings designed for motorcycles and bikes. Enhanced durability for the open road.',
-    image: 'https://images.unsplash.com/photo-1558618047-8c50c3d57c5e?ixlib=rb-4.0.3',
+    image: 'https://images.unsplash.com/photo-1558618047-8c50c3d57c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     features: ['Weather Resistant', 'Scratch Protection', 'Easy Maintenance', 'High Gloss Finish']
   },
   {
     title: 'Yacht Coatings',
     description: 'Marine-grade protective solutions for yachts and boats. Engineered to withstand harsh marine environments.',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3',
+    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     features: ['Salt Water Resistant', 'Anti-Fouling', 'Long-lasting', 'Professional Grade']
   },
   {
     title: 'Aviation Protection',
     description: 'Aerospace-grade coatings for jets and aircraft. Maximum protection at altitude and extreme conditions.',
-    image: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-4.0.3',
+    image: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     features: ['Extreme Weather', 'Lightweight', 'Aerospace Grade', 'Temperature Resistant']
   }
 ];
@@ -54,6 +54,9 @@ export const Services = () => {
                   src={service.image} 
                   alt={service.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
