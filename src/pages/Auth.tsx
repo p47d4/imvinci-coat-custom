@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { User, Mail, Lock, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,6 +18,7 @@ const Auth = () => {
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const { toast } = useToast();
 
   // Redirect authenticated users to intended page or home
   useEffect(() => {
@@ -56,8 +58,19 @@ const Auth = () => {
             setError(error.message);
           }
         } else {
+          // Show success toast
+          toast({
+            title: "Registration Successful!",
+            description: "Please check your email to verify your account before signing in.",
+            duration: 5000,
+          });
+          
+          // Switch to login form and clear fields
+          setIsLogin(true);
           setError('');
-          alert('Registration successful! Please check your email to verify your account.');
+          setEmail('');
+          setPassword('');
+          setFullName('');
         }
       }
     } catch (err) {
