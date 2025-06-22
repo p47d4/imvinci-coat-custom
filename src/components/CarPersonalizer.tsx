@@ -99,7 +99,11 @@ export const CarPersonalizer = () => {
               >
                 <img src={vehicleCon.image} alt={vehicleCon.name} className="w-full h-32 object-cover rounded-lg mb-4" />
                 <h3 className="text-lg font-semibold text-center">{vehicleCon.name}</h3>
-ction>
+       </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Service Selection */}
       <section className="py-16">
