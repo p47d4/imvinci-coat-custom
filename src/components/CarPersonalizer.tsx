@@ -5,7 +5,7 @@ import { Car, Truck, Bike, Ship } from 'lucide-react';
 const vehicleTypes = [
   { id: 'sedan', name: 'Small/Compact', desc:'e.g. X-Small 2-Door/Audi A3/BMW 2 Series/VW Golf GTI/Fiat 500/Mini Cooper', icon: Car, image: 'https://gtechniq.com/wp-content/uploads/2020/05/golf-auto-black.svg' },
   { id: 'suv', name: 'Mid Size', desc:'e.g. Small Sedan/Lexus ES/Ford Fusion/Tesla Model 3/Chevy Malibu/Audi A5', icon: Truck, image: 'https://gtechniq.com/wp-content/uploads/2020/06/teslamodel3-auto-black.svg' },
-  { id: 'coupe', name: 'Full Size', desc:'e.g. Large Sedan/Dodge Charger/BMW 5 series/Tesla Model S/Ford Taurus/Porsche Macan', icon: Car, image: 'https://gtechniq.com/wp-content/uploads/2020/06/escalade-auto-black.svg' },
+  { id: 'coupe', name: 'Full Size', desc:'e.g. Large Sedan/Dodge Charger/BMW 5 series/Tesla Model S/Ford Taurus/Porsche Macan', icon: Car, image: 'https://gtechniq.com/wp-content/uploads/2020/06/bmw5series-auto-black.svg' },
   { id: 'pickup', name: 'Large/X-Large*', desc:'e.g. Large/XL SUV*/Extended Cab Pickup*/Range Rover/BMW 7 Series/*XL Requires Additional Charges', icon: Truck, image: 'https://gtechniq.com/wp-content/uploads/2020/06/escalade-auto-black.svg' }
 ];
 
@@ -17,10 +17,10 @@ const vehicleCondition = [
 ];
 
 const services = [
-  { id: 'ceramic', name: 'Ceramic Coating', price: '$599', description: 'Premium protection for your vehicle' },
-  { id: 'paint', name: 'Paint Protection Film', price: '$899', description: 'Ultimate paint protection' },
-  { id: 'window', name: 'Window Tinting', price: '$299', description: 'Privacy and UV protection' },
-  { id: 'interior', name: 'Interior Protection', price: '$399', description: 'Fabric and leather protection' }
+  { id: 'ceramic', name: 'Ceramic Coating', price: '₦55,000', description: 'Premium protection for your vehicle' },
+  { id: 'paint', name: 'Paint Protection Film', price: '₦80,900', description: 'Ultimate paint protection' },
+  { id: 'window', name: 'Window Tinting', price: '₦29,000', description: 'Privacy and UV protection' },
+  { id: 'interior', name: 'Interior Protection', price: '₦399,000', description: 'Fabric and leather protection' }
 ];
 
 const products = [
@@ -108,7 +108,7 @@ export const CarPersonalizer = () => {
       {/* Service Selection */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">What do you need service for? (Select all that apply)</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">How much polishing do you require?</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service) => (
               <div 
