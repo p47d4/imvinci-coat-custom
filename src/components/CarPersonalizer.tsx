@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Car, Truck, Bike, Ship } from 'lucide-react';
 
 const vehicleTypes = [
-  { id: 'sedan', name: 'Sedan', icon: Car, image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' },
-  { id: 'suv', name: 'SUV', icon: Truck, image: 'https://images.unsplash.com/photo-1566473965997-3de9c817e938?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' },
-  { id: 'coupe', name: 'Coupe', icon: Car, image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' },
-  { id: 'pickup', name: 'Pickup Truck', icon: Truck, image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' }
+  { id: 'sedan', name: 'Small/Compact', desc:'e.g. X-Small 2-Door/Audi A3/BMW 2 Series/VW Golf GTI/Fiat 500/Mini Cooper', icon: Car, image: 'https://gtechniq.com/wp-content/uploads/2020/05/golf-auto-black.svg' },
+  { id: 'suv', name: 'SUV', desc:'A', icon: Truck, image: 'https://images.unsplash.com/photo-1566473965997-3de9c817e938?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' },
+  { id: 'coupe', name: 'Coupe', desc:'A', icon: Car, image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' },
+  { id: 'pickup', name: 'Pickup Truck', desc:'A', icon: Truck, image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' }
 ];
 
 const services = [
@@ -49,9 +49,9 @@ export const CarPersonalizer = () => {
   return (
     <div className="bg-white text-gray-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-red-600 to-red-800 text-white py-20">
+      <section className="bg-gradient-to-r from-red-600 to-red-800 text-white py-10">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-4">US Auto Service Builder</h1>
+          <h1 className="text-5xl font-bold mb-4">Car Service Personalizer</h1>
           <p className="text-xl mb-8">Professional vehicle protection and detailing services</p>
         </div>
       </section>
@@ -59,7 +59,7 @@ export const CarPersonalizer = () => {
       {/* Vehicle Selection */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Select your vehicle type</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Select Your Car Type</h2>
           <div className="grid md:grid-cols-4 gap-6">
             {vehicleTypes.map((vehicle) => (
               <div 
@@ -71,6 +71,7 @@ export const CarPersonalizer = () => {
               >
                 <img src={vehicle.image} alt={vehicle.name} className="w-full h-32 object-cover rounded-lg mb-4" />
                 <h3 className="text-lg font-semibold text-center">{vehicle.name}</h3>
+                <h5 className="text-lg font-semibold text-center">{vehicle.desc}</h5>
               </div>
             ))}
           </div>
