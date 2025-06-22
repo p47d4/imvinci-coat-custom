@@ -4,9 +4,16 @@ import { Car, Truck, Bike, Ship } from 'lucide-react';
 
 const vehicleTypes = [
   { id: 'sedan', name: 'Small/Compact', desc:'e.g. X-Small 2-Door/Audi A3/BMW 2 Series/VW Golf GTI/Fiat 500/Mini Cooper', icon: Car, image: 'https://gtechniq.com/wp-content/uploads/2020/05/golf-auto-black.svg' },
-  { id: 'suv', name: 'SUV', desc:'A', icon: Truck, image: 'https://images.unsplash.com/photo-1566473965997-3de9c817e938?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' },
-  { id: 'coupe', name: 'Coupe', desc:'A', icon: Car, image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' },
-  { id: 'pickup', name: 'Pickup Truck', desc:'A', icon: Truck, image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' }
+  { id: 'suv', name: 'Mid Size', desc:'e.g. Small Sedan/Lexus ES/Ford Fusion/Tesla Model 3/Chevy Malibu/Audi A5', icon: Truck, image: 'https://gtechniq.com/wp-content/uploads/2020/06/teslamodel3-auto-black.svg' },
+  { id: 'coupe', name: 'Full Size', desc:'e.g. Large Sedan/Dodge Charger/BMW 5 series/Tesla Model S/Ford Taurus/Porsche Macan', icon: Car, image: 'https://gtechniq.com/wp-content/uploads/2020/06/escalade-auto-black.svg' },
+  { id: 'pickup', name: 'Large/X-Large*', desc:'e.g. Large/XL SUV*/Extended Cab Pickup*/Range Rover/BMW 7 Series/*XL Requires Additional Charges', icon: Truck, image: 'https://gtechniq.com/wp-content/uploads/2020/06/escalade-auto-black.svg' }
+];
+
+const vehicleCondition = [
+  { id: 'sedan', name: 'New car/near perfect', icon: Car, image: 'https://gtechniq.com/wp-content/uploads/2020/05/new-car-min.jpg' },
+  { id: 'suv', name: 'Light Swirls', icon: Truck, image: 'https://gtechniq.com/wp-content/uploads/2020/05/light-swirls-car-min.jpg' },
+  { id: 'coupe', name: 'Large Swirls & Some Deep Scratches', icon: Car, image: 'https://gtechniq.com/wp-content/uploads/2020/05/large-swirls-car-min.jpg' },
+  { id: 'pickup', name: 'Deep Scratches on All Panels', icon: Truck, image: 'https://gtechniq.com/wp-content/uploads/2020/05/deep-swirls-car-min.jpg' }
 ];
 
 const services = [
@@ -71,12 +78,28 @@ export const CarPersonalizer = () => {
               >
                 <img src={vehicle.image} alt={vehicle.name} className="w-full h-32 object-cover rounded-lg mb-4" />
                 <h3 className="text-lg font-semibold text-center">{vehicle.name}</h3>
-                <h5 className="text-lg font-semibold text-center">{vehicle.desc}</h5>
+                <h5 className="text-center">{vehicle.desc}</h5>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">What is the overall condition of your paintwork?</h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            {vehicleCondition.map((vehicleCon) => (
+              <div 
+                key={vehicleCon.id}
+                onClick={() => setSelectedVehicle(vehicleCon.id)}
+                className={`bg-white rounded-lg shadow-md p-6 cursor-pointer transition-all duration-300 ${
+                  selectedVehicle === vehicleCon.id ? 'ring-2 ring-red-600 shadow-lg' : 'hover:shadow-lg'
+                }`}
+              >
+                <img src={vehicleCon.image} alt={vehicleCon.name} className="w-full h-32 object-cover rounded-lg mb-4" />
+                <h3 className="text-lg font-semibold text-center">{vehicleCon.name}</h3>
+ction>
 
       {/* Service Selection */}
       <section className="py-16">
