@@ -12,13 +12,13 @@ const services = [
   {
     title: 'Motorcycle Protection',
     description: 'Specialized coatings designed for motorcycles and bikes. Enhanced durability for the open road.',
-    image: 'https://images.unsplash.com/photo-1558618047-8c50c3d57c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: 'https://grippingstories.com/wp-content/uploads/2020/05/v02_banner-696x203.png',
     features: ['Weather Resistant', 'Scratch Protection', 'Easy Maintenance', 'High Gloss Finish']
   },
   {
     title: 'Yacht Coatings',
     description: 'Marine-grade protective solutions for yachts and boats. Engineered to withstand harsh marine environments.',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: 'https://static.wixstatic.com/media/e05f93_26588929d87546388bb8f6bbdfab49e7~mv2.jpg/v1/fill/w_551,h_551,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/e05f93_26588929d87546388bb8f6bbdfab49e7~mv2.jpg',
     features: ['Salt Water Resistant', 'Anti-Fouling', 'Long-lasting', 'Professional Grade']
   },
   {
