@@ -8,8 +8,16 @@ const About = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <Header />
       <div className="pt-20">
-        <section className="py-20">
-          <div className="container mx-auto px-4">
+        <section className="py-20 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <img 
+              src="/lovable-uploads/598bd400-68da-42fd-99ae-62328a1d610c.png" 
+              alt="Imvinci showroom with luxury vehicles"
+              className="w-full h-full object-cover opacity-30"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-black/80"></div>
+          </div>
+          <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-5xl md:text-6xl font-bold mb-8">
                 <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
