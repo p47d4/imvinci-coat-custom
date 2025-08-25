@@ -250,7 +250,7 @@ export const CarPersonalizer = () => {
       </section>
 
       {/* Application Photos */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Professional Application Process</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -264,7 +264,7 @@ export const CarPersonalizer = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-16 bg-red-600 text-white">
@@ -278,7 +278,7 @@ export const CarPersonalizer = () => {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-16 bg-gray-900 text-white">
+      {/* <section className="py-16 bg-gray-900 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Sign Up To Our Mailing Newsletter</h2>
           <p className="text-gray-400 mb-8">Stay updated with the latest products and services</p>
@@ -293,7 +293,7 @@ export const CarPersonalizer = () => {
             </button>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };
