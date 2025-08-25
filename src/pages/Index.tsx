@@ -12,9 +12,15 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <Header />
       <Hero />
-      <CarPersonalizer />
+      {/* <CarPersonalizer /> */}
+
+      <img
+            src="/lovable-uploads/founders message.png"
+            alt="IMvinci services hero"
+            className="w-full h-auto object-cover"
+      />
+
       <Services />
-      <Shop />
       <Footer />
     </div>
   );

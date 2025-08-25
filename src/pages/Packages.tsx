@@ -8,42 +8,42 @@ const vehicleServices = [
   {
     title: "Paint Protection Film (PPF)",
     description: "At I'Mvinci, protection meets perfection. Our Paint Protection Film (PPF) is engineered to shield your vehicle against stone chips, scratches, and environmental damage while preserving the showroom finish beneath.",
-    image: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "/lovable-uploads/Porsche.jpg",
     icon: Shield,
     details: "Virtually invisible, it delivers uncompromising defense without altering the beauty of your paintwork. With advanced self-healing technology, surface marks fade away with heat, ensuring your car remains flawless mile after mile."
   },
   {
     title: "Color PPF",
     description: "Luxury is about choice, and with Color PPF, protection becomes an expression of style. Whether you seek a sleek satin finish, a bold color transformation, or subtle accents that elevate your vehicle's presence.",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "/lovable-uploads/IMG_3992.JPG",
     icon: Palette,
     details: "I'Mvinci Color PPF combines durability with design. It protects like traditional PPF yet allows you to redefine aesthetics without compromise, and without permanence."
   },
   {
     title: "Paint Correction",
     description: "Every surface tells a story — but not every mark deserves to remain. At I'Mvinci, our Paint Correction service restores paintwork to its true brilliance by meticulously removing swirl marks, oxidation, and imperfections.",
-    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "/lovable-uploads/IMG-7350.JPG",
     icon: Sparkles,
     details: "Using advanced polishing systems and precise techniques, our experts revive depth, clarity, and gloss, revealing a flawless mirror-like reflection. It is not just about restoring paint — it is about elevating it beyond factory standards."
   },
   {
     title: "Interior Detailing",
     description: "The interior of a vehicle is more than a cabin, it is a sanctuary. At I'Mvinci, our Interior Detailing service is designed to restore that sanctuary to its most pristine state.",
-    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "/lovable-uploads/IMG_0926.JPG",
     icon: Sparkles,
     details: "Every surface is treated with meticulous attention from deep-cleaning carpets and fabric extraction, to rejuvenating leather with conditioners that enhance suppleness and aroma."
   },
   {
     title: "Leather Restoration",
     description: "Leather is timeless — but without care, even the finest hides can lose their elegance. At I'Mvinci, our Leather Restoration service revives and preserves interior craftsmanship.",
-    image: "https://images.unsplash.com/photo-1544829099-b9a0c5303bea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "/lovable-uploads/5a28c0b8-b8da-4120-837b-afe6c384da70 copy.JPG",
     icon: Sparkles,
     details: "From repairing scuffs, cracks, and fading, to precise colour matching that blends seamlessly with the original tone, we restore leather with meticulous attention to detail."
   },
   {
     title: "Premium Window Tint",
     description: "Style • Comfort • Protection. At I'Mvinci, we offer state-of-the-art window tinting solutions designed to elevate the look, performance, and protection of your vehicle.",
-    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "/lovable-uploads/IMG_3547 copy.JPG",
     icon: Droplets,
     details: "Our premium films are engineered to reduce heat, block harmful UV rays, increase privacy, and enhance safety without compromising clarity or style."
   }
@@ -154,7 +154,12 @@ export const Packages = () => {
         </section>
 
         {/* Yacht Services */}
-        <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
+        <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900" style={{
+            backgroundImage: "url('/lovable-uploads/yatch-hero.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}>
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <Ship className="w-16 h-16 text-red-400 mx-auto mb-4" />
@@ -177,7 +182,12 @@ export const Packages = () => {
         </section>
 
         {/* Aircraft Services */}
-        <section className="py-20">
+        <section className="py-20" style={{
+            backgroundImage: "url('/lovable-uploads/aircraft-hero.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}>
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <Plane className="w-16 h-16 text-red-400 mx-auto mb-4" />
@@ -206,7 +216,12 @@ export const Packages = () => {
         </section>
 
         {/* Timepiece Services */}
-        <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
+        <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900" style={{
+            backgroundImage: "url('/lovable-uploads/timepiece-hero.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}>
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <Clock className="w-16 h-16 text-red-400 mx-auto mb-4" />
