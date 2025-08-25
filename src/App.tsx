@@ -20,6 +20,7 @@ import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
+import { Packages } from "./pages/Packages";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/personalizer" element={<Personalizer />} />
               <Route path="/services" element={<ServicesPage />} />
+              <Route path="/packages" element={<Packages />} />
               <Route path="/shop" element={<ShopPage />} />
               <Route path="/quote" element={<GetQuote />} />
               <Route path="/about" element={<About />} />

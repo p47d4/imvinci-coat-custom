@@ -31,8 +31,9 @@ export const Header = () => {
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
             <Link to="/personalizer" className="hover:text-red-400 transition-colors">Personalizer</Link>
             <Link to="/services" className="hover:text-red-400 transition-colors">Services</Link>
-            <Link to="/shop" className="hover:text-red-400 transition-colors">Shop</Link>
-            <Link to="/blog" className="hover:text-red-400 transition-colors">Blog</Link>
+            <Link to="/packages" className="hover:text-red-400 transition-colors">Packages</Link>
+            {/* <Link to="/shop" className="hover:text-red-400 transition-colors">Shop</Link> */}
+            {/* <Link to="/blog" className="hover:text-red-400 transition-colors">Blog</Link> */}
             <Link to="/about" className="hover:text-red-400 transition-colors">About</Link>
             <Link to="/contact" className="hover:text-red-400 transition-colors">Contact</Link>
             <Link to="/quote" className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105">
@@ -85,8 +86,9 @@ export const Header = () => {
               <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
               <Link to="/personalizer" className="hover:text-red-400 transition-colors">Personalizer</Link>
               <Link to="/services" className="hover:text-red-400 transition-colors">Services</Link>
-              <Link to="/shop" className="hover:text-red-400 transition-colors">Shop</Link>
-              <Link to="/blog" className="hover:text-red-400 transition-colors">Blog</Link>
+              <Link to="/packages" className="hover:text-red-400 transition-colors">Packages</Link>
+              {/* <Link to="/shop" className="hover:text-red-400 transition-colors">Shop</Link> */}
+              {/* <Link to="/blog" className="hover:text-red-400 transition-colors">Blog</Link> */}
               <Link to="/about" className="hover:text-red-400 transition-colors">About</Link>
               <Link to="/contact" className="hover:text-red-400 transition-colors">Contact</Link>
               

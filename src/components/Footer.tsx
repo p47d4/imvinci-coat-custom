@@ -28,6 +28,7 @@ export const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Services</h3>
             <ul className="space-y-2 text-gray-400">
+              <li><Link to="/packages" className="hover:text-white transition-colors">Protection Packages</Link></li>
               <li><a href="#" className="hover:text-white transition-colors">Automotive Coatings</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Motorcycle Protection</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Yacht Coatings</a></li>
@@ -40,7 +41,7 @@ export const Footer = () => {
             <h3 className="text-lg font-semibold text-white mb-4">Company</h3>
             <ul className="space-y-2 text-gray-400">
               <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
-              <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
+              {/* <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li> */}
               <li><a href="#" className="hover:text-white transition-colors">Technology</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Quality Standards</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
