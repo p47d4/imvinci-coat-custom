@@ -15,7 +15,7 @@ const Index = () => {
       {/* <CarPersonalizer /> */}
 
       <img
-            src="/lovable-uploads/founders message.png"
+            src="/lovable-uploads/imvinci web_20250826_111959_0000.png"
             alt="IMvinci services hero"
             className="w-full h-auto object-cover"
       />
