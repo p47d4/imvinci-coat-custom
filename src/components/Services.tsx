@@ -70,43 +70,49 @@ const services = [
 
 export const Services = () => {
   return (
-    <section id="services" className="py-20 bg-gradient-to-b from-gray-900 to-black">
-      <div className="container mx-auto px-4">
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="group rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-800 hover:border-red-500/40 transition-colors p-8 flex items-center gap-4"
-            >
-              <div className="shrink-0">
-                <service.icon className="w-10 h-10 text-red-400 group-hover:text-red-300 transition-colors" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-red-400">
-                  {service.title}
-                </h3>
-                <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                  {service.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center mt-20 p-12 bg-gradient-to-r from-red-600/10 to-red-700/10 border border-red-400/20 rounded-3xl">
-          <h3 className="text-3xl font-bold text-white mb-4">
-            Experience Unparalleled Service
-          </h3>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join an exclusive circle of automotive connoisseurs who demand nothing less than perfection.
-          </p>
-          <button className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
-            Get Exclusive Access
-          </button>
-        </div>
+    
+    <><section className="bg-gradient-to-r from-red-600 to-red-800 text-white py-10">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-5xl font-bold mb-4">Our Services</h1>
+        <p className="text-xl mb-8">Professional service offerings for your vehicles</p>
       </div>
-    </section>
+    </section><section id="services" className="py-20 bg-gradient-to-b from-gray-900 to-black">
+        <div className="container mx-auto px-4">
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="group rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-800 hover:border-red-500/40 transition-colors p-8 flex items-center gap-4"
+              >
+                <div className="shrink-0">
+                  <service.icon className="w-10 h-10 text-red-400 group-hover:text-red-300 transition-colors" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-red-400">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-300 text-lg leading-relaxed mb-8">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-20 p-12 bg-gradient-to-r from-red-600/10 to-red-700/10 border border-red-400/20 rounded-3xl">
+            <h3 className="text-3xl font-bold text-white mb-4">
+              Experience Unparalleled Service
+            </h3>
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Join an exclusive circle of automotive connoisseurs who demand nothing less than perfection.
+            </p>
+            <button className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
+              Get Exclusive Access
+            </button>
+          </div>
+        </div>
+      </section></>
   );
 };

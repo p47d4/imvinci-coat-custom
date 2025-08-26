@@ -27,7 +27,9 @@ const services = [
   { id: 'ceramic', name: 'Ceramic Coating', basePrice: 55000, timeHours: 6, description: 'Premium protection for your vehicle' },
   { id: 'ppf', name: 'Paint Protection Film', basePrice: 80900, timeHours: 12, description: 'Ultimate paint protection' },
   { id: 'window', name: 'Window Tinting', basePrice: 29000, timeHours: 3, description: 'Privacy and UV protection' },
-  { id: 'interior', name: 'Interior Protection', basePrice: 39000, timeHours: 4, description: 'Fabric and leather protection' }
+  { id: 'interior', name: 'Interior Protection', basePrice: 39000, timeHours: 4, description: 'Fabric and leather protection' },
+  // Hidden from the grid; controlled via the Optional Upgrades checkboxes
+  { id: 'color_ppf', name: 'Color PPF', basePrice: 150000, timeHours: 14, description: 'Color-matched paint protection film' }
 ];
 
 const applicationPhotos = [
@@ -227,7 +229,9 @@ export const CarPersonalizer = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Additional Services</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service) => (
+            {services
+              .filter((service) => service.id !== 'color_ppf')
+              .map((service) => (
               <div 
                 key={service.id}
                 onClick={() => toggleService(service.id)}
@@ -245,6 +249,42 @@ export const CarPersonalizer = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Optional Upgrades: PPF and Color PPF */}
+      <section className="py-8">
+        <div className="container mx-auto px-4">
+          <h3 className="text-2xl font-bold mb-4">Optional Upgrades</h3>
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <div className="grid gap-4 md:grid-cols-2">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="mt-1"
+                  checked={selectedServices.includes('ppf')}
+                  onChange={() => toggleService('ppf')}
+                />
+                <div>
+                  <div className="font-semibold">PPF (Paint Protection Film)</div>
+                  <div className="text-sm text-gray-600">Adds durable, transparent film protection. From ₦{services.find(s => s.id === 'ppf')!.basePrice.toLocaleString()}</div>
+                </div>
+              </label>
+
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="mt-1"
+                  checked={selectedServices.includes('color_ppf')}
+                  onChange={() => toggleService('color_ppf')}
+                />
+                <div>
+                  <div className="font-semibold">Color PPF</div>
+                  <div className="text-sm text-gray-600">Color-matched protective film. From ₦{services.find(s => s.id === 'color_ppf')!.basePrice.toLocaleString()}</div>
+                </div>
+              </label>
+            </div>
           </div>
         </div>
       </section>
