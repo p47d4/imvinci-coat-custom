@@ -123,7 +123,7 @@ export const Packages = () => {
         </div>
 
         {/* Vehicle Services */}
-        <section className="py-20">
+       <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <Car className="w-16 h-16 text-red-400 mx-auto mb-4" />
@@ -140,7 +140,6 @@ export const Packages = () => {
                     <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-gray-900/90 to-transparent"></div>
                     <div className="absolute top-6 left-6">
-                      {/* <service.icon className="w-12 h-12 text-red-400" /> */}
                     </div>
                   </div>
                   
@@ -158,10 +157,10 @@ export const Packages = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section> 
 
         {/* Yacht Services */}
-        <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900" style={{
+        {/* <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900" style={{
             backgroundImage: "url('/lovable-uploads/yatch-hero.png')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -179,17 +178,16 @@ export const Packages = () => {
             <div className="grid md:grid-cols-2 gap-8">
               {yachtServices.map((service, index) => (
                 <div key={index} className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
-                  {/* <service.icon className="w-12 h-12 text-red-400 mb-6" /> */}
                   <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
                   <p className="text-gray-300 leading-relaxed">{service.description}</p>
                 </div>
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Aircraft Services */}
-        <section className="py-20" style={{
+        {/* <section className="py-20" style={{
             backgroundImage: "url('/lovable-uploads/aircraft-hero.png')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -206,7 +204,6 @@ export const Packages = () => {
 
             {aircraftServices.map((service, index) => (
               <div key={index} className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-12 text-center">
-                {/* <service.icon className="w-16 h-16 text-red-400 mx-auto mb-6" /> */}
                 <h3 className="text-3xl font-bold mb-6">{service.title}</h3>
                 <p className="text-gray-300 text-lg mb-8 max-w-3xl mx-auto leading-relaxed">{service.description}</p>
                 <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
@@ -220,10 +217,10 @@ export const Packages = () => {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Timepiece Services */}
-        <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900" style={{
+        {/* <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900" style={{
             backgroundImage: "url('/lovable-uploads/timepiece-hero.png')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -240,7 +237,6 @@ export const Packages = () => {
 
             {timepieceServices.map((service, index) => (
               <div key={index} className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-3xl p-12 text-center">
-                {/* <service.icon className="w-16 h-16 text-red-400 mx-auto mb-6" /> */}
                 <h3 className="text-3xl font-bold mb-6">{service.title}</h3>
                 <p className="text-gray-300 text-lg mb-8 max-w-3xl mx-auto leading-relaxed">{service.description}</p>
                 <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
@@ -254,10 +250,10 @@ export const Packages = () => {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-red-600 to-red-700">
+        {/* <section className="py-20 bg-gradient-to-r from-red-600 to-red-700">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold mb-6">Experience I'Mvinci Excellence</h2>
             <p className="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
@@ -272,10 +268,10 @@ export const Packages = () => {
               </Link>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
       
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
