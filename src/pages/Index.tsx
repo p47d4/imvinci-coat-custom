@@ -1,11 +1,11 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
-import { CarPersonalizer } from '@/components/CarPersonalizer';
 import { Services } from '@/components/Services';
-import { Shop } from '@/components/Shop';
+import { PackagesSection } from '@/components/PackagesSection';
 import { Footer } from '@/components/Footer';
+import { WhatsAppButton } from '@/components/WhatsAppButton';
 
 const Index = () => {
   return (
@@ -34,13 +34,10 @@ const Index = () => {
             className="w-full h-auto object-cover"
       />
 
-      <img
-            src="/lovable-uploads/timepiece-hero.png"
-            alt="Timepiece services"
-            className="w-full h-auto object-cover"
-      />
+      <PackagesSection />
 
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };

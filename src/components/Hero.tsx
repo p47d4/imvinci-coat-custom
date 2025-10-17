@@ -14,14 +14,14 @@ export const Hero = () => {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight">
             <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent">
-              NEXT-GEN
+              PROTECTING
             </span>
             <br />
-            <span className="text-white">PROTECTION</span>
+            <span className="text-white">THE WORLD'S FINEST</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-            Advanced coating technologies for vehicles and vessels. 
+            Jets, Cars, Yachts and Everything Luxury
             <br />
             <span className="text-red-400">Engineered for excellence. Built for protection.</span>
           </p>
