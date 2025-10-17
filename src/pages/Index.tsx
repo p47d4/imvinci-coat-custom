@@ -4,7 +4,7 @@ import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { Services } from '@/components/Services';
 import { PackagesSection } from '@/components/PackagesSection';
-import { Packages } from '@/Packages';
+import { Packages } from 'Packages';
 import { Footer } from '@/components/Footer';
 
 const Index = () => {
