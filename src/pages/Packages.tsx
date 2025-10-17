@@ -103,7 +103,8 @@ const timepieceServices = [
   }
 ];
 
-export const Packages = () => {
+  const Packages = () => {
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <Header />
@@ -276,3 +277,5 @@ export const Packages = () => {
 
   );
 };
+
+export default Packages;
