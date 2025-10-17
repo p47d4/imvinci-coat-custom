@@ -22,7 +22,7 @@ const vehicleServices = [
   {
     title: "Clear PPF",
     description: "Another Luxury with choice, and with clear PPF, protection becomes an expression of style. Whether you seek a sleek satin finish, a bold clear transformation, or subtle accents that elevate your vehicle's presence.",
-    image: "/lovable-uploads/clear ppf.png",
+    image: "/lovable-uploads/clear ppf.png.png",
     icon: Palette,
     details: "I'Mvinci Color PPF combines durability with design. It protects like traditional PPF yet allows you to redefine aesthetics without compromise, and without permanence."
   },
