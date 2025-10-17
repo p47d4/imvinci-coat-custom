@@ -8,11 +8,11 @@ export const Hero = () => {
   return (
     <section id="home" className="pt-20 min-h-screen flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-black/20"></div>
-      <div className="absolute inset-0 bg-[url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.amazon.in%2FCREON-Scratch-Glossy-Protection-Decoration%2Fdp%2FB0D59QKDFT&psig=AOvVaw0tXH3C5QA-Vlif_UFNDLDH&ust=1760756926692000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCLj4ifOgqpADFQAAAAAdAAAAABAK')] bg-cover bg-center opacity-20"></div>
+      <div className="absolute inset-0 bg-[url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNwWtSdjFPU-mMVxFqUucChEtWB9u2hp7-sll-KUkWAKAK0c4Z')] bg-cover bg-center opacity-20"></div>
       
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h3 className="text-6xl md:text-8xl font-bold mb-6 leading-tight">
+          <h3 className="font-bold mb-6 leading-tight">
             <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent">
               PROTECTING
             </span>
@@ -42,6 +42,7 @@ export const Hero = () => {
           </div>
         </div>
       </div>
+      <hr />
       
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <div className="w-1 h-16 bg-gradient-to-b from-red-400 to-transparent rounded-full"></div>
