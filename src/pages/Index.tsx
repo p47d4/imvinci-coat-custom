@@ -20,7 +20,6 @@ const Index = () => {
             className="w-full h-auto object-cover"
       />
 
-      <Services />
       <Packages />
 
       <img
@@ -72,6 +71,8 @@ const Index = () => {
       />
 
       <PackagesSection />
+<Services />
+
 
        <img
             src="/lovable-uploads/imvinci-contactpage.png"
