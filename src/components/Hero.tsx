@@ -8,17 +8,17 @@ export const Hero = () => {
   return (
     <section id="home" className="pt-20 min-h-screen flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-black/20"></div>
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20"></div>
+      <div className="absolute inset-0 bg-[url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.amazon.in%2FCREON-Scratch-Glossy-Protection-Decoration%2Fdp%2FB0D59QKDFT&psig=AOvVaw0tXH3C5QA-Vlif_UFNDLDH&ust=1760756926692000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCLj4ifOgqpADFQAAAAAdAAAAABAK')] bg-cover bg-center opacity-20"></div>
       
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight">
+          <h3 className="text-6xl md:text-8xl font-bold mb-6 leading-tight">
             <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent">
               PROTECTING
             </span>
             <br />
             <span className="text-white">THE WORLD'S FINEST</span>
-          </h1>
+          </h3>
           
           <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
             Jets, Cars, Yachts and Everything Luxury
@@ -28,16 +28,16 @@ export const Hero = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button 
-              onClick={() => navigate('/services')}
+              onClick={() => navigate('/packages')}
               className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              Explore Coatings
+              Explore Packages
             </button>
             <button 
               onClick={() => navigate('/personalizer')}
               className="border border-gray-400 text-gray-300 hover:text-white hover:border-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300"
             >
-              Watch Demo
+              Check Personalizer
             </button>
           </div>
         </div>
