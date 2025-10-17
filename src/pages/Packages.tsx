@@ -270,9 +270,9 @@ export const Packages = () => {
           </div>
         </section> */}
       </div>
-      
+                <Footer />
+
     </div>
-          <Footer />
 
   );
 };
