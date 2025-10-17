@@ -20,6 +20,13 @@ const vehicleServices = [
     details: "I'Mvinci Color PPF combines durability with design. It protects like traditional PPF yet allows you to redefine aesthetics without compromise, and without permanence."
   },
   {
+    title: "Clear PPF",
+    description: "Another Luxury with choice, and with clear PPF, protection becomes an expression of style. Whether you seek a sleek satin finish, a bold clear transformation, or subtle accents that elevate your vehicle's presence.",
+    image: "/lovable-uploads/clear ppf.png",
+    icon: Palette,
+    details: "I'Mvinci Color PPF combines durability with design. It protects like traditional PPF yet allows you to redefine aesthetics without compromise, and without permanence."
+  },
+  {
     title: "Paint Correction",
     description: "Every surface tells a story — but not every mark deserves to remain. At I'Mvinci, our Paint Correction service restores paintwork to its true brilliance by meticulously removing swirl marks, oxidation, and imperfections.",
     image: "/lovable-uploads/IMG-7350.JPG",
@@ -133,7 +140,7 @@ export const Packages = () => {
                     <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-gray-900/90 to-transparent"></div>
                     <div className="absolute top-6 left-6">
-                      <service.icon className="w-12 h-12 text-red-400" />
+                      {/* <service.icon className="w-12 h-12 text-red-400" /> */}
                     </div>
                   </div>
                   
@@ -172,7 +179,7 @@ export const Packages = () => {
             <div className="grid md:grid-cols-2 gap-8">
               {yachtServices.map((service, index) => (
                 <div key={index} className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
-                  <service.icon className="w-12 h-12 text-red-400 mb-6" />
+                  {/* <service.icon className="w-12 h-12 text-red-400 mb-6" /> */}
                   <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
                   <p className="text-gray-300 leading-relaxed">{service.description}</p>
                 </div>
@@ -199,7 +206,7 @@ export const Packages = () => {
 
             {aircraftServices.map((service, index) => (
               <div key={index} className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-12 text-center">
-                <service.icon className="w-16 h-16 text-red-400 mx-auto mb-6" />
+                {/* <service.icon className="w-16 h-16 text-red-400 mx-auto mb-6" /> */}
                 <h3 className="text-3xl font-bold mb-6">{service.title}</h3>
                 <p className="text-gray-300 text-lg mb-8 max-w-3xl mx-auto leading-relaxed">{service.description}</p>
                 <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
@@ -233,7 +240,7 @@ export const Packages = () => {
 
             {timepieceServices.map((service, index) => (
               <div key={index} className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-3xl p-12 text-center">
-                <service.icon className="w-16 h-16 text-red-400 mx-auto mb-6" />
+                {/* <service.icon className="w-16 h-16 text-red-400 mx-auto mb-6" /> */}
                 <h3 className="text-3xl font-bold mb-6">{service.title}</h3>
                 <p className="text-gray-300 text-lg mb-8 max-w-3xl mx-auto leading-relaxed">{service.description}</p>
                 <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
