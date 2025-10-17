@@ -4,6 +4,7 @@ import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { Services } from '@/components/Services';
 import { PackagesSection } from '@/components/PackagesSection';
+import { Packages } from '@/Packages';
 import { Footer } from '@/components/Footer';
 
 const Index = () => {
@@ -20,20 +21,63 @@ const Index = () => {
       />
 
       <Services />
+      <Packages />
 
       <img
-            src="/lovable-uploads/aircraft-hero.png"
+            src="/lovable-uploads/imvinci-aboutpagehero.png"
             alt="IMvinci services hero"
             className="w-full h-auto object-cover"
       />
 
       <img
-            src="/lovable-uploads/yatch-hero.png"
+            src="/lovable-uploads/imvinci-jetspage1.png"
             alt="Yatch Services"
             className="w-full h-auto object-cover"
       />
 
+       <img
+            src="/lovable-uploads/imvinci-jetservices4.png"
+            alt="IMvinci services hero"
+            className="w-full h-auto object-cover"
+      />
+
+      <img
+            src="/lovable-uploads/service-ppf-tinting2.png"
+            alt="Yatch Services"
+            className="w-full h-auto object-cover"
+      />
+
+      <img
+            src="/lovable-uploads/services-academy-seminar.png"
+            alt="IMvinci services hero"
+            className="w-full h-auto object-cover"
+      />
+
+      <img
+            src="/lovable-uploads/service-carwrap-custom3.png"
+            alt="IMvinci services hero"
+            className="w-full h-auto object-cover"
+      />
+
+      <img
+            src="/lovable-uploads/service-franchising.png"
+            alt="IMvinci services hero"
+            className="w-full h-auto object-cover"
+      />
+
+      <img
+            src="/lovable-uploads/service-consultation.png"
+            alt="IMvinci services hero"
+            className="w-full h-auto object-cover"
+      />
+
       <PackagesSection />
+
+       <img
+            src="/lovable-uploads/imvinci-contactpage.png"
+            alt="IMvinci services hero"
+            className="w-full h-auto object-cover"
+      />
 
       <Footer />
     </div>
