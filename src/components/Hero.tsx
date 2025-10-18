@@ -8,7 +8,7 @@ export const Hero = () => {
   return (
     <section id="home" className="pt-20 min-h-screen flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-black/20"></div>
-      <div className="absolute inset-0 bg-[url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNwWtSdjFPU-mMVxFqUucChEtWB9u2hp7-sll-KUkWAKAK0c4Z')] bg-cover bg-center opacity-20"></div>
+      <div className="absolute inset-0 bg-[url('https://getwallpapers.com/wallpaper/full/3/1/8/1096660-black-car-wallpaper-1920x1080-pictures.jpg')] bg-cover bg-center opacity-20"></div>
       
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
